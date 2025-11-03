@@ -1168,7 +1168,8 @@ sendWaBtn.addEventListener('click', () => {
     }
 
     const message = waMessage.value;
-    const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    const url = `https://api.whatsapp.com/send?phone=${number}&text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
     shareModal.classList.add('hidden');
 });
 
