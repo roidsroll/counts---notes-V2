@@ -1148,7 +1148,6 @@ shareBtn.addEventListener('click', () => {
     }
 
     message += `\nTotal Keseluruhan: ${totalAmount.textContent}`;
-    message += `\n\nTerima kasih telah berbelanja! \u{1F64F}`;
     waMessage.value = message;
     shareModal.classList.remove('hidden');
 });
