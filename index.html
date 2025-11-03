@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count & Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Light mode gradients */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+        
+        .gradient-button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .gradient-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .gradient-total {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 0.5rem;
+        }
+        
+        /* Refined banner styles */
+
+        .outlined-text {
+
+            color: white; /* Text color inside the outline */
+
+            text-shadow: 
+
+                -2px -2px 0 #667eea,  
+
+                2px -2px 0 #667eea,
+
+                -2px 2px 0 #667eea,
+
+                2px 2px 0 #667eea;
+
+            font-weight: 800;
+
+            position: relative;
+
+            display: inline-block;
+
+        }
+        
+        /* Dynamic lightning border effect */
+        .lightning-banner {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 12px;
+        }
+        
+        .lightning-banner::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, 
+                #ffffff, #a020f0, #ffffff, #a020f0, 
+                #ffffff, #a020f0, #ffffff, #a020f0);
+            background-size: 300% 300%;
+            border-radius: 16px;
+            z-index: -1;
+            filter: blur(8px);
+            animation: lightning-border 3s ease infinite;
+        }
+        
+        .lightning-banner::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.8), 
+                rgba(160, 32, 240, 0.8), 
+                rgba(255, 255, 255, 0.8), 
+                rgba(160, 32, 240, 0.8));
+            background-size: 200% 200%;
+            border-radius: 16px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: lightning-glow 2s ease infinite;
+        }
+        
+        @keyframes lightning-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes lightning-glow {
+            0% { background-position: 0% 50%; opacity: 0.7; }
+            50% { background-position: 100% 50%; opacity: 1; }
+            100% { background-position: 0% 50%; opacity: 0.7; }
+        }
+        
+        /* Subtitle styling for better legibility */
+        .subtitle {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        /* Dark mode adjustments */
+        .dark-mode .subtitle {
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Dark mode gradients */
+        .dark-mode {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .bg-white {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        }
+        
+        .dark-mode .bg-gray-100 {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        /* Fix for input fields in dark mode */
+        .dark-mode input.dark\:bg-gray-700 {
+            background-color: #2d3748 !important;
+        }
+        
+        .dark-mode input.dark\:border-gray-600 {
+            border-color: #4a5568 !important;
+        }
+        
+        .dark-mode input.dark\:text-white {
+            color: #e2e8f0 !important;
+        }
+        
+        .dark-mode input::placeholder {
+            color: #a0aec0 !important;
+        }
+        
+        .dark-mode input:focus {
+            background-color: #2d3748 !important;
+            border-color: #667eea !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .dark-mode .text-gray-700 {
+            color: #e2e8f0;
+        }
+        
+        .dark-mode .text-gray-900 {
+            color: #f7fafc;
+        }
+        
+        /* Additional dark mode fixes for input fields */
+        .dark-mode .mobile-card input.dark\:bg-gray-700 {
+            background-color: #2d3748 !important;
+        }
+        
+        .dark-mode .mobile-card input.dark\:border-gray-600 {
+            border-color: #4a5568 !important;
+        }
+        
+        .dark-mode .mobile-card input.dark\:text-white {
+            color: #e2e8f0 !important;
+        }
+        
+        .dark-mode .mobile-card input::placeholder {
+            color: #a0aec0 !important;
+        }
+        
+        .dark-mode .mobile-card input:focus {
+            background-color: #2d3748 !important;
+            border-color: #667eea !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .dark-mode .border-gray-200 {
+            border-color: #4a5568;
+        }
+        
+        .dark-mode .gradient-card {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            border: 1px solid rgba(118, 75, 162, 0.3);
+        }
+        
+        .dark-mode .gradient-button {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        
+        .dark-mode .gradient-button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+        }
+        
+        .dark-mode .gradient-total {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive table for mobile */
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+            
+            .table-container table {
+                min-width: 600px;
+            }
+            
+            .mobile-card {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .desktop-table {
+                display: none;
+            }
+            
+            .mobile-card {
+                display: block;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            }
+            
+            .mobile-card.dark-mode {
+                border-color: #4a5568;
+            }
+            
+            .mobile-card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .mobile-card-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            
+            .mobile-card-input {
+                margin-bottom: 0.5rem;
+            }
+            
+            .mobile-card-input label {
+                display: block;
+                margin-bottom: 0.25rem;
+                font-weight: 500;
+                font-size: 0.875rem;
+            }
+            
+            .mobile-card-input input {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="splash.css">
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body class="font-poppins bg-gray-100 min-h-screen transition-colors duration-300">
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">C&N</div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+        <header class="text-center mb-8">
+            <div class="lightning-banner">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold outlined-text">Count & Notes</h1>
+            </div>
+            <p class="mt-2 text-gray-600 dark:text-gray-300 subtitle">Hitung total harga barang dengan mudah</p>
+        </header>
+
+        <!-- Audio element for sound effects -->
+        <audio id="addItemSound" preload="auto">
+            <source src="https://assets.mixkit.co/sfx/preview/mixkit-coins-handling-1938.mp3" type="audio/mpeg">
+        </audio>
+
+        <main class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
+            <!-- Dark Mode Toggle -->
+            <div class="flex justify-end mb-4">
+                <button id="translateBtn" class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
+                    <i class="fas fa-language"></i>
+                </button>
+                <button id="shareBtn" class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button id="darkModeToggle" class="p-2 rounded-full gradient-button text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div id="google_translate_element"></div>
+
+            <!-- Item Table - Desktop/Tablet View -->
+            <div class="desktop-table overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="gradient-header">
+                            <th class="py-3 px-3 sm:px-4 text-left rounded-tl-lg">Nama Barang</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Jumlah</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Harga Satuan</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Total</th>
+                            <th class="py-3 px-3 sm:px-4 text-center rounded-tr-lg">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTableBody">
+                        <!-- Rows will be added dynamically -->
+                        <tr class="border-b border-gray-200 fade-in">
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="number" min="1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="1">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="0">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm">
+                                0
+                            </td>
+                            <td class="py-3 px-3 sm:px-4 text-center">
+                                <button class="delete-row p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div id="mobileItemCards" class="mobile-cards-container"></div>
+
+            <!-- Add Item Button -->
+            <div class="mt-4 flex justify-center">
+                <button id="addItemBtn" class="gradient-button flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    <i class="fas fa-plus"></i> Tambah Barang
+                </button>
+            </div>
+
+            <!-- Total Section -->
+            <div class="mt-6 p-4 gradient-total flex flex-col sm:flex-row justify-between items-center gap-2">
+                <span class="text-base sm:text-lg font-semibold">Total Keseluruhan:</span>
+                <span id="totalAmount" class="text-xl sm:text-2xl font-bold">Rp 0</span>
+            </div>
+
+            <!-- Download Buttons -->
+            <div class="mt-6 text-center flex flex-col sm:flex-row justify-center gap-4">
+                <button id="downloadPdfBtn" class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    <i class="fas fa-download"></i> Simpan ke PDF
+                </button>
+                <button id="downloadExcelBtn" class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    <i class="fas fa-file-excel"></i> Simpan ke EXCEL
+                </button>
+            </div>
+        </main>
+
+        <!-- WhatsApp Share Modal -->
+        <div id="shareModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Bagikan ke WhatsApp</h2>
+                <div class="mb-4">
+                    <label for="waNumber" class="block text-sm font-medium text-gray-700 dark:text-gray-300">No. WhatsApp Tujuan</label>
+                    <input type="text" id="waNumber" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="waMessage" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pesan</label>
+                    <textarea id="waMessage" rows="10" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+                <div class="flex justify-end gap-4">
+                    <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Batal</button>
+                    <button id="sendWaBtn" class="px-4 py-2 gradient-button text-white rounded-lg">Kirim</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Message -->
+        <div id="validationMessage" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+            Mohon isi semua kolom sebelum menyimpan!
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
