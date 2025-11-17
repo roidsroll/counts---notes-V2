@@ -15,9 +15,16 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 const validationMessage = document.getElementById('validationMessage');
 const addItemSound = document.getElementById('addItemSound');
 
+// Balance-related DOM elements
+const startingBalanceInput = document.getElementById('startingBalanceInput');
+const setBalanceBtn = document.getElementById('setBalanceBtn');
+const totalExpenses = document.getElementById('totalExpenses');
+const endingBalance = document.getElementById('endingBalance');
+
 // State
 let isDarkMode = false;
 let isMobileView = window.innerWidth <= 640;
+let startingBalance = 0;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
@@ -36,6 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadExcelBtn.addEventListener('click', downloadAsExcel);
     darkModeToggle.addEventListener('click', toggleDarkMode);
     
+    // Add balance event listeners
+    setBalanceBtn.addEventListener('click', setStartingBalance);
+    startingBalanceInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            setStartingBalance();
+        }
+    });
+    
     // Add event listeners to existing rows
     updateEventListeners();
     
@@ -47,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Calculate initial total
     calculateTotal();
+    calculateBalances();
 });
 
 // Check if we're in mobile view
@@ -413,6 +429,7 @@ function calculateRowTotal(event) {
     
     totalCell.textContent = formatRupiah(total);
     calculateTotal();
+    calculateBalances();
     saveDataToLocalStorage();
 }
 
@@ -429,6 +446,7 @@ function calculateMobileCardTotal(event) {
     
     totalCell.textContent = formatRupiah(total);
     calculateTotal();
+    calculateBalances();
     saveDataToLocalStorage();
 }
 
@@ -455,6 +473,32 @@ function calculateTotal() {
     totalAmount.textContent = formatRupiah(total);
 }
 
+// Calculate balances (total expenses and ending balance)
+function calculateBalances() {
+    let totalExpenses = 0;
+
+    if (isMobileView) {
+        // For mobile view, get totals from cards
+        const totalCells = mobileItemCards.querySelectorAll('.total-cell');
+        totalCells.forEach(cell => {
+            const value = parseFloat(cell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
+            totalExpenses += value;
+        });
+    } else {
+        // For desktop view, get totals from table
+        const totalCells = document.querySelectorAll('.total-cell');
+        totalCells.forEach(cell => {
+            const value = parseFloat(cell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
+            totalExpenses += value;
+        });
+    }
+
+    const endingBalanceValue = startingBalance - totalExpenses;
+    
+    totalExpenses.textContent = formatRupiah(totalExpenses);
+    endingBalance.textContent = formatRupiah(endingBalanceValue);
+}
+
 // Format number to Rupiah
 function formatRupiah(number) {
     return new Intl.NumberFormat('id-ID', {
@@ -470,6 +514,7 @@ function deleteRow(event) {
     if (itemTableBody.children.length > 1) {
         row.remove();
         calculateTotal();
+        calculateBalances();
         saveDataToLocalStorage();
     } else {
         // If it's the last row, clear the inputs but don't delete
@@ -478,6 +523,7 @@ function deleteRow(event) {
         const totalCell = row.querySelector('.total-cell');
         totalCell.textContent = '0';
         calculateTotal();
+        calculateBalances();
         saveDataToLocalStorage();
     }
 }
@@ -488,6 +534,7 @@ function deleteMobileCard(event) {
     if (mobileItemCards.children.length > 1) {
         card.remove();
         calculateTotal();
+        calculateBalances();
         saveDataToLocalStorage();
     } else {
         // If it's the last card, clear the inputs but don't delete
@@ -496,6 +543,7 @@ function deleteMobileCard(event) {
         const totalCell = card.querySelector('.total-cell');
         totalCell.textContent = '0';
         calculateTotal();
+        calculateBalances();
         saveDataToLocalStorage();
     }
 }
@@ -800,9 +848,20 @@ function downloadAsExcel() {
     const ws_data = [
         ["COUNT & NOTES"],
         [`Tanggal: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`],
-        [],
-        ["No.", "Nama Barang", "Jumlah", "Harga Satuan", "Total"]
     ];
+
+    // Add balance information if starting balance exists
+    const currentStartingBalance = loadStartingBalance();
+    if (currentStartingBalance > 0) {
+        ws_data.push([]);
+        ws_data.push(["SALDO AWAL:", formatRupiah(currentStartingBalance)]);
+        ws_data.push(["TOTAL PENGELUARAN:", formatRupiah(totalAmountValue)]);
+        const endingBalanceValue = currentStartingBalance - totalAmountValue;
+        ws_data.push(["SALDO AKHIR:", formatRupiah(endingBalanceValue)]);
+        ws_data.push([]);
+    }
+
+    ws_data.push(["No.", "Nama Barang", "Jumlah", "Harga Satuan", "Total"]);
 
     items.forEach((item, index) => {
         ws_data.push([index + 1, item.name, item.jumlah, item.harga, item.total]);
@@ -961,6 +1020,34 @@ function saveDataToLocalStorage() {
     
     localStorage.setItem('itemData', JSON.stringify(data));
     localStorage.setItem('totalAmount', totalAmount.textContent);
+    localStorage.setItem('startingBalance', startingBalance);
+}
+
+// Save starting balance to localStorage
+function saveStartingBalance(amount) {
+    startingBalance = parseFloat(amount) || 0;
+    localStorage.setItem('startingBalance', startingBalance);
+    startingBalanceInput.value = startingBalance;
+}
+
+// Load starting balance from localStorage
+function loadStartingBalance() {
+    const savedBalance = localStorage.getItem('startingBalance');
+    if (savedBalance !== null) {
+        startingBalance = parseFloat(savedBalance) || 0;
+        startingBalanceInput.value = startingBalance;
+    } else {
+        startingBalance = 0;
+        startingBalanceInput.value = startingBalance;
+    }
+    return startingBalance;
+}
+
+// Set starting balance function
+function setStartingBalance() {
+    const amount = parseFloat(startingBalanceInput.value) || 0;
+    saveStartingBalance(amount);
+    calculateBalances();
 }
 
 // Load data from localStorage
@@ -1077,10 +1164,13 @@ function loadDataFromLocalStorage() {
         
         // Load total amount
         const savedTotal = localStorage.getItem('totalAmount');
-            if (savedTotal) {
-                totalAmount.textContent = savedTotal;
-            }
+        if (savedTotal) {
+            totalAmount.textContent = savedTotal;
         }
+        
+        // Load starting balance
+        loadStartingBalance();
+    }
         
         // Anti-inspection code
         document.addEventListener('contextmenu', event => event.preventDefault());

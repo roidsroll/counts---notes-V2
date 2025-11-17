@@ -363,6 +363,29 @@
         </audio>
 
         <main class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
+            <!-- Balance Controls -->
+            <div class="balance-controls mb-6 p-4 gradient-card rounded-lg">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="balance-input">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Saldo Awal</label>
+                        <div class="flex gap-2">
+                            <input type="number" id="startingBalanceInput" class="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="0" value="0" min="0">
+                            <button id="setBalanceBtn" class="px-4 py-2 gradient-button text-white rounded-lg text-sm">Set Saldo</button>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-display">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total Pengeluaran</label>
+                        <div id="totalExpenses" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-center font-semibold">Rp 0</div>
+                    </div>
+                    
+                    <div class="balance-display">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Saldo Akhir</label>
+                        <div id="endingBalance" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-center font-semibold">Rp 0</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Dark Mode Toggle -->
             <div class="flex justify-end mb-4">
                 <button id="translateBtn" class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">

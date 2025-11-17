@@ -1,0 +1,7 @@
+{
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "text": "Use the Conventional Commit format and attach emojis that match the type of change and add emoji perpoint. Examples: 🎨 for any CSS-related changes, ✨ for new features, 🐛 for bug fixes, 📝 for documentation updates, ♻️ for refactoring, 🚀 for performance improvements, 🔧 for configuration or build changes, 🧪 for tests. Allow combining multiple emojis if multiple types of changes occur. Keep the message concise, descriptive, and written in the imperative mood. Always include a short, clear list of key changes using bullet points when relevant."
+        }
+    ],
+}
