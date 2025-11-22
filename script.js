@@ -2,7 +2,7 @@
 
 // Initialize jsPDF
 window.jspdf = window.jspdf || {};
-window.jspdf.jsPDF = window.jspdf.jsPDF || function() {};
+window.jspdf.jsPDF = window.jspdf.jsPDF || function () { };
 
 // DOM Elements
 const itemTableBody = document.getElementById('itemTableBody');
@@ -27,7 +27,7 @@ let isMobileView = window.innerWidth <= 640;
 let startingBalance = 0;
 
 // Initialize
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Splash screen logic
     const splashScreen = document.getElementById('splash-screen');
     setTimeout(() => {
@@ -36,30 +36,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load data from localStorage if available
     loadDataFromLocalStorage();
-    
+
     // Add event listeners
     addItemBtn.addEventListener('click', addNewItemRow);
     downloadPdfBtn.addEventListener('click', downloadAsPDF);
     downloadExcelBtn.addEventListener('click', downloadAsExcel);
     darkModeToggle.addEventListener('click', toggleDarkMode);
-    
+
     // Add balance event listeners
     setBalanceBtn.addEventListener('click', setStartingBalance);
-    startingBalanceInput.addEventListener('keypress', function(e) {
+    startingBalanceInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             setStartingBalance();
         }
     });
-    
+
     // Add event listeners to existing rows
     updateEventListeners();
-    
+
     // Check for mobile view on load
     checkMobileView();
-    
+
     // Add resize listener
     window.addEventListener('resize', checkMobileView);
-    
+
     // Calculate initial total
     calculateTotal();
     calculateBalances();
@@ -81,7 +81,7 @@ function addNewItemRow() {
         addItemSound.currentTime = 0;
         addItemSound.play().catch(e => console.log("Audio play failed:", e));
     }
-    
+
     if (isMobileView) {
         addNewMobileCard();
     } else {
@@ -104,7 +104,7 @@ function addNewDesktopRow() {
         <td class="py-3 px-3 sm:px-4">
             <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="0">
         </td>
-        <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm">
+        <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
             0
         </td>
         <td class="py-3 px-3 sm:px-4 text-center action-cell">
@@ -128,7 +128,7 @@ function addNewDesktopRow() {
             </div>
         </td>
     `;
-    
+
     itemTableBody.appendChild(newRow);
     updateEventListeners();
 }
@@ -167,7 +167,7 @@ function addNewMobileCard() {
             </div>
             <div class="mobile-card-input">
                 <label class="text-gray-700 dark:text-gray-300">Total</label>
-                <div class="p-2 font-medium total-cell text-sm">0</div>
+                <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">0</div>
             </div>
             <div class="comment-section-card hidden mt-2">
                 <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
@@ -178,7 +178,7 @@ function addNewMobileCard() {
             </div>
         </div>
     `;
-    
+
     mobileItemCards.appendChild(newCard);
     updateMobileEventListeners();
 }
@@ -193,30 +193,30 @@ function updateEventListeners() {
     const saveCommentButtons = document.querySelectorAll('.save-comment');
     const cancelCommentButtons = document.querySelectorAll('.cancel-comment');
     const copyButtons = document.querySelectorAll('.copy-row');
-    
+
     jumlahInputs.forEach(input => {
         input.addEventListener('input', calculateRowTotal);
     });
-    
+
     hargaInputs.forEach(input => {
         input.addEventListener('input', calculateRowTotal);
     });
-    
+
     deleteButtons.forEach(button => {
         button.addEventListener('click', deleteRow);
     });
-    
+
     // Add comment event listeners
     addCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const row = this.closest('tr');
             const commentSection = row.querySelector('.comment-section');
             commentSection.classList.remove('hidden');
         });
     });
-    
+
     saveCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const row = this.closest('tr');
             const commentInput = row.querySelector('.comment-input');
             const commentSection = row.querySelector('.comment-section');
@@ -224,9 +224,9 @@ function updateEventListeners() {
             commentSection.classList.add('hidden');
         });
     });
-    
+
     cancelCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const row = this.closest('tr');
             const commentInput = row.querySelector('.comment-input');
             const commentSection = row.querySelector('.comment-section');
@@ -234,15 +234,15 @@ function updateEventListeners() {
             commentSection.classList.add('hidden');
         });
     });
-    
+
     // Add copy event listeners
     copyButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const row = this.closest('tr');
             const nameInput = row.querySelector('input[type="text"]');
             const jumlahInput = row.querySelector('.jumlah-input');
             const hargaInput = row.querySelector('.harga-input');
-            
+
             // Create a new row with the same values
             const newRow = document.createElement('tr');
             newRow.className = 'border-b border-gray-200 fade-in';
@@ -256,7 +256,7 @@ function updateEventListeners() {
                 <td class="py-3 px-3 sm:px-4">
                     <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" value="${hargaInput.value}">
                 </td>
-                <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm">
+                <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
                     0
                 </td>
                 <td class="py-3 px-3 sm:px-4 text-center action-cell">
@@ -280,16 +280,16 @@ function updateEventListeners() {
                     </div>
                 </td>
             `;
-            
+
             // Insert the new row after the current row
             row.parentNode.insertBefore(newRow, row.nextSibling);
-            
+
             // Update event listeners to include the new row
             updateEventListeners();
-            
+
             // Calculate the total for the new row
             calculateRowTotal({ target: newRow.querySelector('.jumlah-input') });
-            
+
             // Save to localStorage
             saveDataToLocalStorage();
         });
@@ -306,30 +306,30 @@ function updateMobileEventListeners() {
     const saveCommentButtons = mobileItemCards.querySelectorAll('.save-comment-card');
     const cancelCommentButtons = mobileItemCards.querySelectorAll('.cancel-comment-card');
     const copyButtons = mobileItemCards.querySelectorAll('.copy-card');
-    
+
     jumlahInputs.forEach(input => {
         input.addEventListener('input', calculateMobileCardTotal);
     });
-    
+
     hargaInputs.forEach(input => {
         input.addEventListener('input', calculateMobileCardTotal);
     });
-    
+
     deleteButtons.forEach(button => {
         button.addEventListener('click', deleteMobileCard);
     });
-    
+
     // Add comment event listeners
     addCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const card = this.closest('.mobile-card');
             const commentSection = card.querySelector('.comment-section-card');
             commentSection.classList.remove('hidden');
         });
     });
-    
+
     saveCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const card = this.closest('.mobile-card');
             const commentInput = card.querySelector('.comment-input-card');
             const commentSection = card.querySelector('.comment-section-card');
@@ -337,9 +337,9 @@ function updateMobileEventListeners() {
             commentSection.classList.add('hidden');
         });
     });
-    
+
     cancelCommentButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const card = this.closest('.mobile-card');
             const commentInput = card.querySelector('.comment-input-card');
             const commentSection = card.querySelector('.comment-section-card');
@@ -347,15 +347,15 @@ function updateMobileEventListeners() {
             commentSection.classList.add('hidden');
         });
     });
-    
+
     // Add copy event listeners
     copyButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const card = this.closest('.mobile-card');
             const nameInput = card.querySelector('input[type="text"]');
             const jumlahInput = card.querySelector('.jumlah-input');
             const hargaInput = card.querySelector('.harga-input');
-            
+
             // Create a new card with the same values
             const newCard = document.createElement('div');
             newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
@@ -389,7 +389,7 @@ function updateMobileEventListeners() {
                     </div>
                     <div class="mobile-card-input">
                         <label class="text-gray-700 dark:text-gray-300">Total</label>
-                        <div class="p-2 font-medium total-cell text-sm">0</div>
+                        <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">0</div>
                     </div>
                     <div class="comment-section-card hidden mt-2">
                         <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
@@ -400,16 +400,16 @@ function updateMobileEventListeners() {
                     </div>
                 </div>
             `;
-            
+
             // Insert the new card after the current card
             card.parentNode.insertBefore(newCard, card.nextSibling);
-            
+
             // Update event listeners to include the new card
             updateMobileEventListeners();
-            
+
             // Calculate the total for the new card
             calculateMobileCardTotal({ target: newCard.querySelector('.jumlah-input') });
-            
+
             // Save to localStorage
             saveDataToLocalStorage();
         });
@@ -422,11 +422,11 @@ function calculateRowTotal(event) {
     const jumlahInput = row.querySelector('.jumlah-input');
     const hargaInput = row.querySelector('.harga-input');
     const totalCell = row.querySelector('.total-cell');
-    
+
     const jumlah = parseFloat(jumlahInput.value) || 0;
     const harga = parseFloat(hargaInput.value) || 0;
     const total = jumlah * harga;
-    
+
     totalCell.textContent = formatRupiah(total);
     calculateTotal();
     calculateBalances();
@@ -439,11 +439,11 @@ function calculateMobileCardTotal(event) {
     const jumlahInput = card.querySelector('.jumlah-input');
     const hargaInput = card.querySelector('.harga-input');
     const totalCell = card.querySelector('.total-cell');
-    
+
     const jumlah = parseFloat(jumlahInput.value) || 0;
     const harga = parseFloat(hargaInput.value) || 0;
     const total = jumlah * harga;
-    
+
     totalCell.textContent = formatRupiah(total);
     calculateTotal();
     calculateBalances();
@@ -453,7 +453,7 @@ function calculateMobileCardTotal(event) {
 // Calculate total amount
 function calculateTotal() {
     let total = 0;
-    
+
     if (isMobileView) {
         // For mobile view, get totals from cards
         const totalCells = mobileItemCards.querySelectorAll('.total-cell');
@@ -469,10 +469,10 @@ function calculateTotal() {
             total += value;
         });
     }
-    
+
     const formattedTotal = formatRupiah(total);
     if (totalAmount) totalAmount.textContent = formattedTotal;
-    
+
     const totalAmountMobile = document.getElementById('totalAmountMobile');
     if (totalAmountMobile) totalAmountMobile.textContent = formattedTotal;
 }
@@ -498,7 +498,7 @@ function calculateBalances() {
     }
 
     const endingBalanceValue = startingBalance - currentTotalExpenses;
-    
+
     if (totalExpenses) totalExpenses.textContent = formatRupiah(currentTotalExpenses);
     if (endingBalance) endingBalance.textContent = formatRupiah(endingBalanceValue);
 }
@@ -555,17 +555,17 @@ function deleteMobileCard(event) {
 // Render mobile cards based on desktop data
 function renderMobileCards() {
     if (!isMobileView) return;
-    
+
     // Get all rows data
     const rows = itemTableBody.querySelectorAll('tr');
     mobileItemCards.innerHTML = '';
-    
+
     rows.forEach(row => {
         const nameInput = row.querySelector('input[type="text"]');
         const jumlahInput = row.querySelector('.jumlah-input');
         const hargaInput = row.querySelector('.harga-input');
         const totalCell = row.querySelector('.total-cell');
-        
+
         const newCard = document.createElement('div');
         newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
         newCard.innerHTML = `
@@ -598,7 +598,7 @@ function renderMobileCards() {
                 </div>
                 <div class="mobile-card-input">
                     <label class="text-gray-700 dark:text-gray-300">Total</label>
-                    <div class="p-2 font-medium total-cell text-sm">${totalCell.textContent}</div>
+                    <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">${totalCell.textContent}</div>
                 </div>
                 <div class="comment-section-card hidden mt-2">
                     <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
@@ -609,10 +609,10 @@ function renderMobileCards() {
                 </div>
             </div>
         `;
-        
+
         mobileItemCards.appendChild(newCard);
     });
-    
+
     updateMobileEventListeners();
 }
 
@@ -623,19 +623,19 @@ function downloadAsPDF() {
         showValidationMessage();
         return;
     }
-    
+
     // Create a new PDF document
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
+
     // Set font styles
     doc.setFont("helvetica");
-    
+
     // Add header
     doc.setFontSize(20);
     doc.setTextColor(0, 0, 0);
     doc.text("COUNT & NOTES", 105, 20, null, null, "center");
-    
+
     // Add date
     const today = new Date();
     const dateStr = today.toLocaleDateString('id-ID', {
@@ -643,17 +643,17 @@ function downloadAsPDF() {
         month: 'long',
         year: 'numeric'
     });
-    
+
     doc.setFontSize(12);
     doc.text(`Tanggal: ${dateStr}`, 105, 30, null, null, "center");
-    
+
     // Add line separator
     doc.line(20, 35, 190, 35);
-    
+
     // Get item data
     let items = [];
     let totalAmountValue = 0;
-    
+
     if (isMobileView) {
         // For mobile view, get data from cards
         const cards = mobileItemCards.querySelectorAll('.mobile-card');
@@ -662,18 +662,18 @@ function downloadAsPDF() {
             const jumlahInput = card.querySelector('.jumlah-input');
             const hargaInput = card.querySelector('.harga-input');
             const totalCell = card.querySelector('.total-cell');
-            
+
             const jumlah = parseFloat(jumlahInput.value) || 0;
             const harga = parseFloat(hargaInput.value) || 0;
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-            
+
             items.push({
                 name: nameInput.value,
                 jumlah: jumlah,
                 harga: harga,
                 total: total
             });
-            
+
             totalAmountValue += total;
         });
     } else {
@@ -684,32 +684,43 @@ function downloadAsPDF() {
             const jumlahInput = row.querySelector('.jumlah-input');
             const hargaInput = row.querySelector('.harga-input');
             const totalCell = row.querySelector('.total-cell');
-            
+
             const jumlah = parseFloat(jumlahInput.value) || 0;
             const harga = parseFloat(hargaInput.value) || 0;
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-            
+
             items.push({
                 name: nameInput.value,
                 jumlah: jumlah,
                 harga: harga,
                 total: total
             });
-            
+
             totalAmountValue += total;
         });
     }
-    
+
+    // Add Balance Info
+    let yPosition = 45; // Initialize yPosition here
+    const currentStartingBalance = loadStartingBalance();
+    const currentEndingBalance = currentStartingBalance - totalAmountValue;
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Saldo Awal: ${formatRupiah(currentStartingBalance)}`, 20, yPosition);
+    doc.text(`Pengeluaran: ${formatRupiah(totalAmountValue)}`, 85, yPosition);
+    doc.text(`Sisa Saldo: ${formatRupiah(currentEndingBalance)}`, 145, yPosition);
+
+    yPosition += 15;
+
     // Add items to PDF in table format
-    let yPosition = 45;
-    
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.text("DAFTAR BARANG:", 20, yPosition);
     yPosition += 10;
-    
+
     doc.setFont("helvetica", "normal");
-    
+
     if (items.length > 0) {
         // Table header
         doc.setFont("helvetica", "bold");
@@ -722,14 +733,14 @@ function downloadAsPDF() {
         doc.text("Total", 160, yPosition + 7);
         doc.setFont("helvetica", "normal");
         yPosition += 10;
-        
+
         // Table rows
         items.forEach((item, index) => {
             // Check if we need a new page
             if (yPosition > 270) {
                 doc.addPage();
                 yPosition = 20;
-                
+
                 // Re-add table header on new page
                 doc.setFont("helvetica", "bold");
                 doc.setFillColor(240, 240, 240);
@@ -742,38 +753,38 @@ function downloadAsPDF() {
                 doc.setFont("helvetica", "normal");
                 yPosition += 10;
             }
-            
+
             // Format harga satuan and total
             const hargaSatuanFormatted = formatRupiah(item.harga);
             const totalFormatted = formatRupiah(item.total);
-            
+
             // Table row
             doc.text(`${index + 1}`, 25, yPosition + 7);
             doc.text(item.name, 35, yPosition + 7);
             doc.text(item.jumlah.toString(), 95, yPosition + 7);
             doc.text(hargaSatuanFormatted, 120, yPosition + 7);
             doc.text(totalFormatted, 160, yPosition + 7);
-            
+
             // Draw row border
             doc.rect(20, yPosition, 170, 10);
-            
+
             yPosition += 10;
         });
     } else {
         doc.text("Tidak ada barang yang dimasukkan.", 20, yPosition);
         yPosition += 10;
     }
-    
+
     // Add total
     // Check if we need a new page for the total
     if (yPosition > 270) {
         doc.addPage();
         yPosition = 20;
     }
-    
+
     // Add spacing before total
     yPosition += 10;
-    
+
     // Add total with better formatting
     doc.setFont("helvetica", "bold");
     doc.setFillColor(230, 230, 255);
@@ -782,7 +793,7 @@ function downloadAsPDF() {
     doc.text("TOTAL:", 25, yPosition + 10);
     doc.text(formatRupiah(totalAmountValue), 160, yPosition + 10);
     doc.setTextColor(0, 0, 0);
-    
+
     // Save the PDF
     doc.save('perhitungan-barang.pdf');
 }
@@ -854,16 +865,14 @@ function downloadAsExcel() {
         [`Tanggal: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`],
     ];
 
-    // Add balance information if starting balance exists
+    // Add balance information
     const currentStartingBalance = loadStartingBalance();
-    if (currentStartingBalance > 0) {
-        ws_data.push([]);
-        ws_data.push(["SALDO AWAL:", formatRupiah(currentStartingBalance)]);
-        ws_data.push(["TOTAL PENGELUARAN:", formatRupiah(totalAmountValue)]);
-        const endingBalanceValue = currentStartingBalance - totalAmountValue;
-        ws_data.push(["SALDO AKHIR:", formatRupiah(endingBalanceValue)]);
-        ws_data.push([]);
-    }
+    ws_data.push([]);
+    ws_data.push(["SALDO AWAL:", formatRupiah(currentStartingBalance)]);
+    ws_data.push(["PENGELUARAN:", formatRupiah(totalAmountValue)]);
+    const endingBalanceValue = currentStartingBalance - totalAmountValue;
+    ws_data.push(["SISA SALDO:", formatRupiah(endingBalanceValue)]);
+    ws_data.push([]);
 
     ws_data.push(["No.", "Nama Barang", "Jumlah", "Harga Satuan", "Total"]);
 
@@ -913,7 +922,7 @@ function validateInputs() {
             const nameInput = card.querySelector('input[type="text"]');
             const jumlahInput = card.querySelector('.jumlah-input');
             const hargaInput = card.querySelector('.harga-input');
-            
+
             if (!nameInput.value.trim() || !jumlahInput.value || !hargaInput.value) {
                 return false;
             }
@@ -925,7 +934,7 @@ function validateInputs() {
             const nameInput = row.querySelector('input[type="text"]');
             const jumlahInput = row.querySelector('.jumlah-input');
             const hargaInput = row.querySelector('.harga-input');
-            
+
             if (!nameInput.value.trim() || !jumlahInput.value || !hargaInput.value) {
                 return false;
             }
@@ -946,7 +955,7 @@ function showValidationMessage() {
 function toggleDarkMode() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle('dark-mode', isDarkMode);
-    
+
     // Update mobile cards if in mobile view
     if (isMobileView) {
         const cards = mobileItemCards.querySelectorAll('.mobile-card');
@@ -965,7 +974,7 @@ function toggleDarkMode() {
             // But we can force re-render if needed
         });
     }
-    
+
     // Update icon
     const icon = darkModeToggle.querySelector('i');
     if (isDarkMode) {
@@ -975,7 +984,7 @@ function toggleDarkMode() {
         icon.classList.remove('fa-sun');
         icon.classList.add('fa-moon');
     }
-    
+
     // Save preference to localStorage
     localStorage.setItem('darkMode', isDarkMode);
 }
@@ -983,7 +992,7 @@ function toggleDarkMode() {
 // Save data to localStorage
 function saveDataToLocalStorage() {
     let data = [];
-    
+
     if (isMobileView) {
         // For mobile view, get data from cards
         const cards = mobileItemCards.querySelectorAll('.mobile-card');
@@ -993,7 +1002,7 @@ function saveDataToLocalStorage() {
             const hargaInput = card.querySelector('.harga-input');
             const totalCell = card.querySelector('.total-cell');
             const commentInput = card.querySelector('.comment-input-card');
-            
+
             data.push({
                 name: nameInput.value,
                 jumlah: jumlahInput.value,
@@ -1011,7 +1020,7 @@ function saveDataToLocalStorage() {
             const hargaInput = row.querySelector('.harga-input');
             const totalCell = row.querySelector('.total-cell');
             const commentInput = row.querySelector('.comment-input');
-            
+
             data.push({
                 name: nameInput.value,
                 jumlah: jumlahInput.value,
@@ -1021,7 +1030,7 @@ function saveDataToLocalStorage() {
             });
         });
     }
-    
+
     localStorage.setItem('itemData', JSON.stringify(data));
     localStorage.setItem('totalAmount', totalAmount.textContent);
     localStorage.setItem('startingBalance', startingBalance);
@@ -1065,12 +1074,12 @@ function loadDataFromLocalStorage() {
         icon.classList.remove('fa-moon');
         icon.classList.add('fa-sun');
     }
-    
+
     // Load item data
     const savedData = localStorage.getItem('itemData');
     if (savedData) {
         const data = JSON.parse(savedData);
-        
+
         if (isMobileView) {
             // For mobile view, populate cards
             mobileItemCards.innerHTML = '';
@@ -1137,7 +1146,7 @@ function loadDataFromLocalStorage() {
                     <td class="py-3 px-3 sm:px-4">
                         <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="${item.harga}">
                     </td>
-                    <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm">
+                    <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
                         ${item.total}
                     </td>
                     <td class="py-3 px-3 sm:px-4 text-center action-cell">
@@ -1165,118 +1174,118 @@ function loadDataFromLocalStorage() {
             });
             updateEventListeners();
         }
-        
+
         // Load total amount
         const savedTotal = localStorage.getItem('totalAmount');
         if (savedTotal) {
             totalAmount.textContent = savedTotal;
         }
-        
+
         // Load starting balance
         loadStartingBalance();
     }
-        
-        // Anti-inspection code
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123) { // F12
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
-                return false;
-            }
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
-                return false;
-            }
-        };
 
-// Share to WhatsApp functionality
-const shareBtn = document.getElementById('shareBtn');
-const shareModal = document.getElementById('shareModal');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const sendWaBtn = document.getElementById('sendWaBtn');
-const waNumber = document.getElementById('waNumber');
-const waMessage = document.getElementById('waMessage');
+    // Anti-inspection code
+    document.addEventListener('contextmenu', event => event.preventDefault());
 
-shareBtn.addEventListener('click', () => {
-    let message = '\u{1F4E6} *Data Pecatatan*\n------------------------\n';
-    let items = [];
-
-    if (isMobileView) {
-        const cards = mobileItemCards.querySelectorAll('.mobile-card');
-        cards.forEach((card, index) => {
-            const nameInput = card.querySelector('input[type="text"]');
-            const jumlahInput = card.querySelector('.jumlah-input');
-            const hargaInput = card.querySelector('.harga-input');
-            const totalCell = card.querySelector('.total-cell');
-
-            const barang = nameInput.value;
-            const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
-            const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-
-            message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
-        });
-    } else {
-        const rows = itemTableBody.querySelectorAll('tr');
-        rows.forEach((row, index) => {
-            const nameInput = row.querySelector('input[type="text"]');
-            const jumlahInput = row.querySelector('.jumlah-input');
-            const hargaInput = row.querySelector('.harga-input');
-            const totalCell = row.querySelector('.total-cell');
-
-            const barang = nameInput.value;
-            const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
-            const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-
-            message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
-        });
-    }
-
-    message += `\nTotal Keseluruhan: ${totalAmount.textContent}`;
-    waMessage.value = message;
-    shareModal.classList.remove('hidden');
-});
-
-closeModalBtn.addEventListener('click', () => {
-    shareModal.classList.add('hidden');
-});
-
-sendWaBtn.addEventListener('click', () => {
-    let number = waNumber.value.trim();
-    if (number.startsWith('08')) {
-        number = '62' + number.substring(1);
-    }
-
-    if (!number) {
-        alert('Nomor WhatsApp harus diisi!');
-        return;
-    }
-
-    const message = waMessage.value;
-    const url = `https://api.whatsapp.com/send?phone=${number}&text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-    shareModal.classList.add('hidden');
-});
-
-// Google Translate
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-
-const translateBtn = document.getElementById('translateBtn');
-translateBtn.addEventListener('click', () => {
-    // const googleTranslateElement = document.getElementById('google_translate_element');
-    // googleTranslateElement.classList.toggle('hidden');
-});
-
-        
+    document.onkeydown = function (e) {
+        if (e.keyCode == 123) { // F12
+            return false;
         }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { // Ctrl+Shift+C
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+            return false;
+        }
+    };
+
+    // Share to WhatsApp functionality
+    const shareBtn = document.getElementById('shareBtn');
+    const shareModal = document.getElementById('shareModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const sendWaBtn = document.getElementById('sendWaBtn');
+    const waNumber = document.getElementById('waNumber');
+    const waMessage = document.getElementById('waMessage');
+
+    shareBtn.addEventListener('click', () => {
+        let message = '\u{1F4E6} *Data Pecatatan*\n------------------------\n';
+        let items = [];
+
+        if (isMobileView) {
+            const cards = mobileItemCards.querySelectorAll('.mobile-card');
+            cards.forEach((card, index) => {
+                const nameInput = card.querySelector('input[type="text"]');
+                const jumlahInput = card.querySelector('.jumlah-input');
+                const hargaInput = card.querySelector('.harga-input');
+                const totalCell = card.querySelector('.total-cell');
+
+                const barang = nameInput.value;
+                const jumlah = parseFloat(jumlahInput.value) || 0;
+                const harga = parseFloat(hargaInput.value) || 0;
+                const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
+
+                message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
+            });
+        } else {
+            const rows = itemTableBody.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                const nameInput = row.querySelector('input[type="text"]');
+                const jumlahInput = row.querySelector('.jumlah-input');
+                const hargaInput = row.querySelector('.harga-input');
+                const totalCell = row.querySelector('.total-cell');
+
+                const barang = nameInput.value;
+                const jumlah = parseFloat(jumlahInput.value) || 0;
+                const harga = parseFloat(hargaInput.value) || 0;
+                const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
+
+                message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
+            });
+        }
+
+        message += `\nTotal Keseluruhan: ${totalAmount.textContent}`;
+        waMessage.value = message;
+        shareModal.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+        shareModal.classList.add('hidden');
+    });
+
+    sendWaBtn.addEventListener('click', () => {
+        let number = waNumber.value.trim();
+        if (number.startsWith('08')) {
+            number = '62' + number.substring(1);
+        }
+
+        if (!number) {
+            alert('Nomor WhatsApp harus diisi!');
+            return;
+        }
+
+        const message = waMessage.value;
+        const url = `https://api.whatsapp.com/send?phone=${number}&text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+        shareModal.classList.add('hidden');
+    });
+
+    // Google Translate
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+
+    const translateBtn = document.getElementById('translateBtn');
+    translateBtn.addEventListener('click', () => {
+        // const googleTranslateElement = document.getElementById('google_translate_element');
+        // googleTranslateElement.classList.toggle('hidden');
+    });
+
+
+}

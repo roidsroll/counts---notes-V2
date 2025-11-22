@@ -445,7 +445,7 @@
                                     class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input"
                                     placeholder="0" value="0">
                             </td>
-                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm break-all">
+                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
                                 0
                             </td>
                             <td class="py-3 px-3 sm:px-4 text-center">
@@ -459,7 +459,7 @@
                     <tfoot>
                         <tr class="gradient-header text-white font-bold">
                             <td colspan="3" class="py-3 px-4 text-left rounded-bl-lg">Total Keseluruhan</td>
-                            <td class="py-3 px-4 break-all" id="totalAmount">Rp 0</td>
+                            <td class="py-3 px-4 whitespace-nowrap" id="totalAmount">Rp 0</td>
                             <td class="rounded-br-lg"></td>
                         </tr>
                     </tfoot>
@@ -472,7 +472,8 @@
             <!-- Mobile Total -->
             <div class="mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-lg sm:hidden shadow-lg">
                 <span class="font-semibold text-white">Total Keseluruhan:</span>
-                <span id="totalAmountMobile" class="font-bold text-xl text-white break-all text-right">Rp 0</span>
+                <span id="totalAmountMobile" class="font-bold text-xl text-white whitespace-nowrap text-right">Rp
+                    0</span>
             </div>
 
             <!-- Add Item Button -->
@@ -511,7 +512,7 @@
                         <div class="flex flex-col flex-1 min-w-0">
                             <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Sisa Saldo</span>
                             <span id="endingBalance"
-                                class="text-lg font-bold text-green-600 dark:text-green-400 break-all">Rp
+                                class="text-lg font-bold text-green-600 dark:text-green-400 whitespace-nowrap">Rp
                                 0</span>
                         </div>
                         <div
@@ -526,7 +527,7 @@
                         <div class="flex flex-col flex-1 min-w-0">
                             <span class="text-xs font-bold text-red-500 uppercase tracking-wider">Pengeluaran</span>
                             <span id="totalExpenses"
-                                class="text-lg font-bold text-red-600 dark:text-red-400 break-all">Rp
+                                class="text-lg font-bold text-red-600 dark:text-red-400 whitespace-nowrap">Rp
                                 0</span>
                         </div>
                         <div
