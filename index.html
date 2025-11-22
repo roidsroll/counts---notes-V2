@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R2TP8HSRHW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2TP8HSRHW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-R2TP8HSRHW');
-</script>
+        gtag('config', 'G-R2TP8HSRHW');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Count & Notes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -36,14 +36,14 @@
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .gradient-text {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .gradient-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -51,38 +51,39 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
         }
-        
+
         .gradient-button:hover {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .gradient-card {
             background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
             border: 1px solid rgba(102, 126, 234, 0.2);
         }
-        
+
         .gradient-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        
+
         .gradient-total {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             border-radius: 0.5rem;
         }
-        
+
         /* Refined banner styles */
 
         .outlined-text {
 
-            color: white; /* Text color inside the outline */
+            color: white;
+            /* Text color inside the outline */
 
-            text-shadow: 
+            text-shadow:
 
-                -2px -2px 0 #667eea,  
+                -2px -2px 0 #667eea,
 
                 2px -2px 0 #667eea,
 
@@ -97,7 +98,7 @@
             display: inline-block;
 
         }
-        
+
         /* Dynamic lightning border effect */
         .lightning-banner {
             position: relative;
@@ -105,7 +106,7 @@
             padding: 10px 20px;
             border-radius: 12px;
         }
-        
+
         .lightning-banner::before {
             content: '';
             position: absolute;
@@ -113,16 +114,16 @@
             left: -4px;
             right: -4px;
             bottom: -4px;
-            background: linear-gradient(45deg, 
-                #ffffff, #a020f0, #ffffff, #a020f0, 
-                #ffffff, #a020f0, #ffffff, #a020f0);
+            background: linear-gradient(45deg,
+                    #ffffff, #a020f0, #ffffff, #a020f0,
+                    #ffffff, #a020f0, #ffffff, #a020f0);
             background-size: 300% 300%;
             border-radius: 16px;
             z-index: -1;
             filter: blur(8px);
             animation: lightning-border 3s ease infinite;
         }
-        
+
         .lightning-banner::after {
             content: '';
             position: absolute;
@@ -130,161 +131,187 @@
             left: -4px;
             right: -4px;
             bottom: -4px;
-            background: linear-gradient(45deg, 
-                rgba(255, 255, 255, 0.8), 
-                rgba(160, 32, 240, 0.8), 
-                rgba(255, 255, 255, 0.8), 
-                rgba(160, 32, 240, 0.8));
+            background: linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.8),
+                    rgba(160, 32, 240, 0.8),
+                    rgba(255, 255, 255, 0.8),
+                    rgba(160, 32, 240, 0.8));
             background-size: 200% 200%;
             border-radius: 16px;
             z-index: -2;
             filter: blur(15px);
             animation: lightning-glow 2s ease infinite;
         }
-        
+
         @keyframes lightning-border {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
-        
+
         @keyframes lightning-glow {
-            0% { background-position: 0% 50%; opacity: 0.7; }
-            50% { background-position: 100% 50%; opacity: 1; }
-            100% { background-position: 0% 50%; opacity: 0.7; }
+            0% {
+                background-position: 0% 50%;
+                opacity: 0.7;
+            }
+
+            50% {
+                background-position: 100% 50%;
+                opacity: 1;
+            }
+
+            100% {
+                background-position: 0% 50%;
+                opacity: 0.7;
+            }
         }
-        
+
         /* Subtitle styling for better legibility */
         .subtitle {
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             font-weight: 500;
             margin-top: 10px;
         }
-        
+
         /* Dark mode adjustments */
         .dark-mode .subtitle {
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
         }
-        
+
         /* Dark mode gradients */
         .dark-mode {
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: #e2e8f0;
         }
-        
+
         .dark-mode .bg-white {
             background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
         }
-        
+
         .dark-mode .bg-gray-100 {
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
-        
+
         /* Fix for input fields in dark mode */
         .dark-mode input.dark\:bg-gray-700 {
             background-color: #2d3748 !important;
         }
-        
+
         .dark-mode input.dark\:border-gray-600 {
             border-color: #4a5568 !important;
         }
-        
+
         .dark-mode input.dark\:text-white {
             color: #e2e8f0 !important;
         }
-        
+
         .dark-mode input::placeholder {
             color: #a0aec0 !important;
         }
-        
+
         .dark-mode input:focus {
             background-color: #2d3748 !important;
             border-color: #667eea !important;
             color: #e2e8f0 !important;
         }
-        
+
         .dark-mode .text-gray-700 {
             color: #e2e8f0;
         }
-        
+
         .dark-mode .text-gray-900 {
             color: #f7fafc;
         }
-        
+
         /* Additional dark mode fixes for input fields */
         .dark-mode .mobile-card input.dark\:bg-gray-700 {
             background-color: #2d3748 !important;
         }
-        
+
         .dark-mode .mobile-card input.dark\:border-gray-600 {
             border-color: #4a5568 !important;
         }
-        
+
         .dark-mode .mobile-card input.dark\:text-white {
             color: #e2e8f0 !important;
         }
-        
+
         .dark-mode .mobile-card input::placeholder {
             color: #a0aec0 !important;
         }
-        
+
         .dark-mode .mobile-card input:focus {
             background-color: #2d3748 !important;
             border-color: #667eea !important;
             color: #e2e8f0 !important;
         }
-        
+
         .dark-mode .border-gray-200 {
             border-color: #4a5568;
         }
-        
+
         .dark-mode .gradient-card {
             background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
             border: 1px solid rgba(118, 75, 162, 0.3);
         }
-        
+
         .dark-mode .gradient-button {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
-        
+
         .dark-mode .gradient-button:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
         }
-        
+
         .dark-mode .gradient-total {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
         }
-        
+
         .fade-in {
             animation: fadeIn 0.3s ease-in;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         /* Responsive table for mobile */
         @media (max-width: 768px) {
             .table-container {
                 overflow-x: auto;
             }
-            
+
             .table-container table {
                 min-width: 600px;
             }
-            
+
             .mobile-card {
                 display: none;
             }
         }
-        
+
         @media (max-width: 640px) {
             .desktop-table {
                 display: none;
             }
-            
+
             .mobile-card {
                 display: block;
                 border: 1px solid #e5e7eb;
@@ -293,42 +320,43 @@
                 margin-bottom: 1rem;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             }
-            
+
             .mobile-card.dark-mode {
                 border-color: #4a5568;
             }
-            
+
             .mobile-card-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 0.5rem;
             }
-            
+
             .mobile-card-content {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 0.5rem;
             }
-            
+
             .mobile-card-input {
                 margin-bottom: 0.5rem;
             }
-            
+
             .mobile-card-input label {
                 display: block;
                 margin-bottom: 0.25rem;
                 font-weight: 500;
                 font-size: 0.875rem;
             }
-            
+
             .mobile-card-input input {
                 width: 100%;
             }
         }
     </style>
     <link rel="stylesheet" href="splash.css">
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body class="font-poppins bg-gray-100 min-h-screen transition-colors duration-300">
@@ -346,14 +374,19 @@
         </header>
 
         <div class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
-            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Panduan Pengguna dan Fitur yang tersedia</h2>
+            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Panduan Pengguna dan Fitur yang tersedia
+            </h2>
             <ul class="list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li><i class="fas fa-plus-circle mr-2 text-green-500"></i><b>Tambah Barang:</b> Tambah baris item baru.</li>
+                <li><i class="fas fa-plus-circle mr-2 text-green-500"></i><b>Tambah Barang:</b> Tambah baris item baru.
+                </li>
                 <li><i class="fas fa-trash-alt mr-2 text-red-500"></i><b>Hapus Barang:</b> Hapus baris item.</li>
                 <li><i class="fas fa-copy mr-2 text-yellow-500"></i><b>Salin Barang:</b> Duplikasi baris item.</li>
-                <li><i class="fas fa-file-download mr-2 text-indigo-500"></i><b>Ekspor Data:</b> Simpan data ke PDF/Excel.</li>
-                <li><i class="fab fa-whatsapp mr-2 text-green-600"></i><b>Bagikan:</b> Kirim data via WhatsApp. dengan klik icon share</li>
-                <li><i class="fas fa-mobile-alt mr-2 text-teal-500"></i><b>Responsif:</b> Tampilan menyesuaikan perangkat.</li>
+                <li><i class="fas fa-file-download mr-2 text-indigo-500"></i><b>Ekspor Data:</b> Simpan data ke
+                    PDF/Excel.</li>
+                <li><i class="fab fa-whatsapp mr-2 text-green-600"></i><b>Bagikan:</b> Kirim data via WhatsApp. dengan
+                    klik icon share</li>
+                <li><i class="fas fa-mobile-alt mr-2 text-teal-500"></i><b>Responsif:</b> Tampilan menyesuaikan
+                    perangkat.</li>
             </ul>
         </div>
 
@@ -363,38 +396,20 @@
         </audio>
 
         <main class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
-            <!-- Balance Controls -->
-            <div class="balance-controls mb-6 p-4 gradient-card rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="balance-input">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Saldo Awal</label>
-                        <div class="flex gap-2">
-                            <input type="number" id="startingBalanceInput" class="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="0" value="0" min="0">
-                            <button id="setBalanceBtn" class="px-4 py-2 gradient-button text-white rounded-lg text-sm">Set Saldo</button>
-                        </div>
-                    </div>
-                    
-                    <div class="balance-display">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total Pengeluaran</label>
-                        <div id="totalExpenses" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-center font-semibold">Rp 0</div>
-                    </div>
-                    
-                    <div class="balance-display">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Saldo Akhir</label>
-                        <div id="endingBalance" class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-center font-semibold">Rp 0</div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Dark Mode Toggle -->
             <div class="flex justify-end mb-4">
-                <button id="translateBtn" class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
+                <button id="translateBtn"
+                    class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
                     <i class="fas fa-language"></i>
                 </button>
-                <button id="shareBtn" class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
+                <button id="shareBtn"
+                    class="p-2 rounded-full gradient-button text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2">
                     <i class="fas fa-share-alt"></i>
                 </button>
-                <button id="darkModeToggle" class="p-2 rounded-full gradient-button text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                <button id="darkModeToggle"
+                    class="p-2 rounded-full gradient-button text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl">
                     <i class="fas fa-moon"></i>
                 </button>
             </div>
@@ -416,79 +431,162 @@
                         <!-- Rows will be added dynamically -->
                         <tr class="border-b border-gray-200 fade-in">
                             <td class="py-3 px-3 sm:px-4">
-                                <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
+                                <input type="text"
+                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
+                                    placeholder="Nama barang">
                             </td>
                             <td class="py-3 px-3 sm:px-4">
-                                <input type="number" min="1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="1">
+                                <input type="number" min="1"
+                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input"
+                                    placeholder="0" value="1">
                             </td>
                             <td class="py-3 px-3 sm:px-4">
-                                <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="0">
+                                <input type="number" min="0" step="100"
+                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input"
+                                    placeholder="0" value="0">
                             </td>
-                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm">
+                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm break-all">
                                 0
                             </td>
                             <td class="py-3 px-3 sm:px-4 text-center">
-                                <button class="delete-row p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+                                <button
+                                    class="delete-row p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr class="gradient-header text-white font-bold">
+                            <td colspan="3" class="py-3 px-4 text-left rounded-bl-lg">Total Keseluruhan</td>
+                            <td class="py-3 px-4 break-all" id="totalAmount">Rp 0</td>
+                            <td class="rounded-br-lg"></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
 
             <!-- Mobile Card View -->
             <div id="mobileItemCards" class="mobile-cards-container"></div>
 
+            <!-- Mobile Total -->
+            <div class="mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-lg sm:hidden shadow-lg">
+                <span class="font-semibold text-white">Total Keseluruhan:</span>
+                <span id="totalAmountMobile" class="font-bold text-xl text-white break-all text-right">Rp 0</span>
+            </div>
+
             <!-- Add Item Button -->
             <div class="mt-4 flex justify-center">
-                <button id="addItemBtn" class="gradient-button flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                <button id="addItemBtn"
+                    class="gradient-button flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-plus"></i> Tambah Barang
                 </button>
             </div>
 
-            <!-- Total Section -->
-            <div class="mt-6 p-4 gradient-total flex flex-col sm:flex-row justify-between items-center gap-2">
-                <span class="text-base sm:text-lg font-semibold">Total Keseluruhan:</span>
-                <span id="totalAmount" class="text-xl sm:text-2xl font-bold">Rp 0</span>
+            <!-- Balance Controls -->
+            <div
+                class="balance-controls mb-6 p-6 gradient-card rounded-2xl shadow-sm border border-indigo-100 dark:border-gray-700">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                    <!-- Saldo Awal Input -->
+                    <div class="relative group">
+                        <label class="block text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2 ml-1">Saldo
+                            Awal</label>
+                        <div class="relative flex items-center">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-400 font-bold">Rp</span>
+                            </div>
+                            <input type="number" id="startingBalanceInput"
+                                class="block w-full pl-10 pr-20 py-3 bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-600 rounded-xl focus:ring-0 focus:border-indigo-500 transition-all font-bold text-gray-700 dark:text-white"
+                                placeholder="0" value="0" min="0">
+                            <button id="setBalanceBtn"
+                                class="absolute right-1.5 top-1.5 bottom-1.5 px-4 gradient-button text-white text-xs font-bold uppercase rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center">
+                                Set
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Saldo Akhir -->
+                    <div
+                        class="bg-green-50 dark:bg-green-900/20 rounded-xl p-3 border border-green-100 dark:border-green-800/30 flex items-center justify-between">
+                        <div class="flex flex-col flex-1 min-w-0">
+                            <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Sisa Saldo</span>
+                            <span id="endingBalance"
+                                class="text-lg font-bold text-green-600 dark:text-green-400 break-all">Rp
+                                0</span>
+                        </div>
+                        <div
+                            class="h-10 w-10 rounded-full bg-green-100 dark:bg-green-800/40 flex items-center justify-center text-green-500 shrink-0 ml-2">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+
+                    <!-- Total Pengeluaran -->
+                    <div
+                        class="bg-red-50 dark:bg-red-900/20 rounded-xl p-3 border border-red-100 dark:border-red-800/30 flex items-center justify-between">
+                        <div class="flex flex-col flex-1 min-w-0">
+                            <span class="text-xs font-bold text-red-500 uppercase tracking-wider">Pengeluaran</span>
+                            <span id="totalExpenses"
+                                class="text-lg font-bold text-red-600 dark:text-red-400 break-all">Rp
+                                0</span>
+                        </div>
+                        <div
+                            class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-800/40 flex items-center justify-center text-red-500 shrink-0 ml-2">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Download Buttons -->
             <div class="mt-6 text-center flex flex-col sm:flex-row justify-center gap-4">
-                <button id="downloadPdfBtn" class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                <button id="downloadPdfBtn"
+                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-download"></i> Simpan ke PDF
                 </button>
-                <button id="downloadExcelBtn" class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                <button id="downloadExcelBtn"
+                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-file-excel"></i> Simpan ke EXCEL
                 </button>
             </div>
         </main>
 
         <!-- WhatsApp Share Modal -->
-        <div id="shareModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div id="shareModal"
+            class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
                 <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Bagikan ke WhatsApp</h2>
                 <div class="mb-4">
-                    <label for="waNumber" class="block text-sm font-medium text-gray-700 dark:text-gray-300">No. WhatsApp Tujuan</label>
-                    <input type="text" id="waNumber" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <label for="waNumber" class="block text-sm font-medium text-gray-700 dark:text-gray-300">No.
+                        WhatsApp Tujuan</label>
+                    <input type="text" id="waNumber"
+                        class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
                 <div class="mb-4">
-                    <label for="waMessage" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pesan</label>
-                    <textarea id="waMessage" rows="10" class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                    <label for="waMessage"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pesan</label>
+                    <textarea id="waMessage" rows="10"
+                        class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
                 <div class="flex justify-end gap-4">
-                    <button id="closeModalBtn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Batal</button>
+                    <button id="closeModalBtn"
+                        class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Batal</button>
                     <button id="sendWaBtn" class="px-4 py-2 gradient-button text-white rounded-lg">Kirim</button>
                 </div>
             </div>
         </div>
 
         <!-- Validation Message -->
-        <div id="validationMessage" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
+        <div id="validationMessage"
+            class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50">
             Mohon isi semua kolom sebelum menyimpan!
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
     <script src="script.js"></script>
 </body>
+
 </html>

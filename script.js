@@ -470,33 +470,37 @@ function calculateTotal() {
         });
     }
     
-    totalAmount.textContent = formatRupiah(total);
+    const formattedTotal = formatRupiah(total);
+    if (totalAmount) totalAmount.textContent = formattedTotal;
+    
+    const totalAmountMobile = document.getElementById('totalAmountMobile');
+    if (totalAmountMobile) totalAmountMobile.textContent = formattedTotal;
 }
 
 // Calculate balances (total expenses and ending balance)
 function calculateBalances() {
-    let totalExpenses = 0;
+    let currentTotalExpenses = 0;
 
     if (isMobileView) {
         // For mobile view, get totals from cards
         const totalCells = mobileItemCards.querySelectorAll('.total-cell');
         totalCells.forEach(cell => {
             const value = parseFloat(cell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-            totalExpenses += value;
+            currentTotalExpenses += value;
         });
     } else {
         // For desktop view, get totals from table
         const totalCells = document.querySelectorAll('.total-cell');
         totalCells.forEach(cell => {
             const value = parseFloat(cell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
-            totalExpenses += value;
+            currentTotalExpenses += value;
         });
     }
 
-    const endingBalanceValue = startingBalance - totalExpenses;
+    const endingBalanceValue = startingBalance - currentTotalExpenses;
     
-    totalExpenses.textContent = formatRupiah(totalExpenses);
-    endingBalance.textContent = formatRupiah(endingBalanceValue);
+    if (totalExpenses) totalExpenses.textContent = formatRupiah(currentTotalExpenses);
+    if (endingBalance) endingBalance.textContent = formatRupiah(endingBalanceValue);
 }
 
 // Format number to Rupiah
