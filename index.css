@@ -1,0 +1,320 @@
+.gradient-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #ffffff 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #1a1a1a 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-button {
+            background: linear-gradient(135deg, #333333 0%, #cccccc 100%);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(135deg, #cccccc 0%, #333333 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #333333 0%, #666666 100%);
+            color: white;
+        }
+
+        .gradient-total {
+            background: linear-gradient(135deg, #4a4a4a 0%, #b0b0b0 100%);
+            color: white;
+            border-radius: 0.5rem;
+        }
+
+        /* Refined banner styles */
+
+        .outlined-text {
+
+            color: white;
+            /* Text color inside the outline */
+
+            text-shadow:
+
+                -2px -2px 0 #666666,
+
+                2px -2px 0 #666666,
+
+                -2px 2px 0 #666666,
+
+                2px 2px 0 #666666;
+
+            font-weight: 800;
+
+            position: relative;
+
+            display: inline-block;
+
+        }
+
+        /* Dynamic lightning border effect */
+        .lightning-banner {
+            position: relative;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 12px;
+        }
+
+        .lightning-banner::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg,
+                    #ffffff, #333333, #ffffff, #333333,
+                    #ffffff, #333333, #ffffff, #333333);
+            background-size: 300% 300%;
+            border-radius: 16px;
+            z-index: -1;
+            filter: blur(8px);
+            animation: lightning-border 3s ease infinite;
+        }
+
+        .lightning-banner::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.8),
+                    rgba(51, 51, 51, 0.8),
+                    rgba(255, 255, 255, 0.8),
+                    rgba(51, 51, 51, 0.8));
+            background-size: 200% 200%;
+            border-radius: 16px;
+            z-index: -2;
+            filter: blur(15px);
+            animation: lightning-glow 2s ease infinite;
+        }
+
+        @keyframes lightning-border {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes lightning-glow {
+            0% {
+                background-position: 0% 50%;
+                opacity: 0.7;
+            }
+
+            50% {
+                background-position: 100% 50%;
+                opacity: 1;
+            }
+
+            100% {
+                background-position: 0% 50%;
+                opacity: 0.7;
+            }
+        }
+
+        /* Subtitle styling for better legibility */
+        .subtitle {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* Dark mode adjustments */
+        .dark-mode .subtitle {
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Dark mode gradients */
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e2e8f0;
+        }
+
+        .dark-mode .bg-white {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        }
+
+        .dark-mode .bg-gray-100 {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        /* Fix for input fields in dark mode */
+        .dark-mode input.dark\:bg-gray-700 {
+            background-color: #2d2d2d !important;
+        }
+
+        .dark-mode input.dark\:border-gray-600 {
+            border-color: #4a4a4a !important;
+        }
+
+        .dark-mode input.dark\:text-white {
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode input::placeholder {
+            color: #a0aec0 !important;
+        }
+
+        .dark-mode input:focus {
+            background-color: #2d2d2d !important;
+            border-color: #666666 !important;
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .text-gray-700 {
+            color: #e2e8f0;
+        }
+
+        .dark-mode .text-gray-900 {
+            color: #f7fafc;
+        }
+
+        /* Additional dark mode fixes for input fields */
+        .dark-mode .mobile-card input.dark\:bg-gray-700 {
+            background-color: #2d2d2d !important;
+        }
+
+        .dark-mode .mobile-card input.dark\:border-gray-600 {
+            border-color: #4a4a4a !important;
+        }
+
+        .dark-mode .mobile-card input.dark\:text-white {
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .mobile-card input::placeholder {
+            color: #a0aec0 !important;
+        }
+
+        .dark-mode .mobile-card input:focus {
+            background-color: #2d2d2d !important;
+            border-color: #666666 !important;
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .border-gray-200 {
+            border-color: #4a4a4a;
+        }
+
+        .dark-mode .gradient-card {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            border: 1px solid rgba(102, 102, 102, 0.3);
+        }
+
+        .dark-mode .gradient-button {
+            background: linear-gradient(135deg, #666666 0%, #333333 100%);
+        }
+
+        .dark-mode .gradient-button:hover {
+            background: linear-gradient(135deg, #333333 0%, #666666 100%);
+            box-shadow: 0 4px 15px rgba(102, 102, 102, 0.4);
+        }
+
+        .dark-mode .gradient-total {
+            background: linear-gradient(135deg, #4a4a4a 0%, #999999 100%);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive table for mobile */
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table-container table {
+                min-width: 600px;
+            }
+
+            .mobile-card {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .desktop-table {
+                display: none;
+            }
+
+            .mobile-card {
+                display: block;
+                border: 1px solid #e5e7eb;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            }
+
+            .mobile-card.dark-mode {
+                border-color: #4a4a4a;
+            }
+
+            .mobile-card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .mobile-card-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .mobile-card-input {
+                margin-bottom: 0.5rem;
+            }
+
+            .mobile-card-input label {
+                display: block;
+                margin-bottom: 0.25rem;
+                font-weight: 500;
+                font-size: 0.875rem;
+            }
+
+            .mobile-card-input input {
+                width: 100%;
+            }
+        }
