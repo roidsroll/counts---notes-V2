@@ -19,12 +19,19 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 // State
 let currentBalance = 0;
 let wishlistItems = [];
-let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    // Splash screen logic
+    const splashScreen = document.getElementById('splash-screen');
+    if (splashScreen) {
+        setTimeout(() => {
+            splashScreen.classList.add('hidden');
+        }, 2000);
+    }
     initDB();
-    applyDarkMode();
+
 
     // Event Listeners
     if (addSavingsBtn) addSavingsBtn.addEventListener('click', () => updateSavings('add'));
@@ -38,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (addItemForm) addItemForm.addEventListener('submit', addNewItem);
-    if (darkModeToggle) darkModeToggle.addEventListener('click', toggleDarkMode);
+
 });
 
 // Database Initialization
@@ -307,21 +314,4 @@ function formatRupiah(number) {
     }).format(number);
 }
 
-function toggleDarkMode() {
-    isDarkMode = !isDarkMode;
-    localStorage.setItem('darkMode', isDarkMode);
-    applyDarkMode();
-}
 
-function applyDarkMode() {
-    const icon = darkModeToggle.querySelector('i');
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    } else {
-        document.body.classList.remove('dark-mode');
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-    }
-}

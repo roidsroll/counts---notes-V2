@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2TP8HSRHW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-R2TP8HSRHW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduler - Count & Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="splash.css">
+
+    <!-- FullCalendar CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/main.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+    <style>
+        /* Highlight weekends in FullCalendar */
+        .fc-day-sat .fc-daygrid-day-number,
+        .fc-day-sun .fc-daygrid-day-number {
+            color: red;
+            font-weight: bold;
+        }
+        .fc-day-sat,
+        .fc-day-sun {
+            background-color: #ffeaea; /* Light red background for weekend days */
+        }
+        /* Make events on weekends also appear more prominent if needed */
+        .fc-event-weekend {
+            background-color: #ffcccc !important; /* Lighter red for events on weekends */
+            border-color: #ff0000 !important;
+        }
+    </style>
+</head>
+
+<body class="font-poppins bg-white text-gray-900 min-h-screen">
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">C&N</div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 max-w-7xl">
+        <header class="text-center mb-8">
+            <div class="lightning-banner">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold outlined-text text-white">Scheduler</h1>
+            </div>
+        </header>
+
+        <main class="relative bg-white border border-gray-300 rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl text-gray-900">
+            <!-- Navigation Buttons -->
+            <div class="flex justify-end mb-4">
+                <a href="index.html" id="homeBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="notes.html" id="notesBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                </a>
+                <a href="wishlist.html" id="wishlistBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <button id="darkModeToggle"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <!-- Calendar Container -->
+            <div id="calendar" class="mt-8 p-4 bg-white rounded-lg shadow-inner"></div>
+
+            <!-- Event Modal -->
+            <div id="eventModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 p-4">
+                <div class="bg-white text-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md transform transition-all duration-300 scale-95 opacity-0" id="eventModalContent">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-900" id="modalTitle">Tambah Event Baru</h2>
+                    <div class="mb-4">
+                        <label for="eventTitleInput" class="block text-sm font-medium text-gray-900">Judul Event</label>
+                        <input type="text" id="eventTitleInput"
+                            class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-gray-900">
+                    </div>
+                    <div class="mb-4">
+                        <label for="eventDateInput" class="block text-sm font-medium text-gray-900">Tanggal</label>
+                        <input type="date" id="eventDateInput"
+                            class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-gray-900">
+                    </div>
+                    <div class="mb-4">
+                        <label for="eventDescriptionInput" class="block text-sm font-medium text-gray-900">Deskripsi (Opsional)</label>
+                        <textarea id="eventDescriptionInput" rows="3"
+                            class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-gray-900"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-4">
+                        <button id="cancelEventBtn"
+                            class="px-4 py-2 bg-black text-white hover:bg-gray-800 rounded-lg transition-colors duration-200">Batal</button>
+                        <button id="saveEventBtn"
+                            class="px-4 py-2 bg-black text-white hover:bg-gray-800 rounded-lg transition-colors duration-200">Simpan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Buttons -->
+            <div class="mt-6 text-center">
+                <button id="downloadPdfBtn"
+                    class="bg-black text-white hover:bg-gray-800 flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl mx-auto">
+                    <i class="fas fa-download"></i> Simpan ke PDF
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="scheduler.js"></script>
+</body>
+
+</html>

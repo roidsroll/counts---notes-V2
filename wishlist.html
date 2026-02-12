@@ -21,7 +21,6 @@
 
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -31,264 +30,132 @@
             }
         }
     </script>
-    <style>
-        /* Reusing styles from index.html for consistency */
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .gradient-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .gradient-button:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .gradient-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .gradient-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .outlined-text {
-            color: white;
-            text-shadow: -2px -2px 0 #667eea, 2px -2px 0 #667eea, -2px 2px 0 #667eea, 2px 2px 0 #667eea;
-            font-weight: 800;
-            position: relative;
-            display: inline-block;
-        }
-
-        .lightning-banner {
-            position: relative;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 12px;
-        }
-
-        .lightning-banner::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(45deg, #ffffff, #a020f0, #ffffff, #a020f0, #ffffff, #a020f0, #ffffff, #a020f0);
-            background-size: 300% 300%;
-            border-radius: 16px;
-            z-index: -1;
-            filter: blur(8px);
-            animation: lightning-border 3s ease infinite;
-        }
-
-        .lightning-banner::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.8), rgba(160, 32, 240, 0.8), rgba(255, 255, 255, 0.8), rgba(160, 32, 240, 0.8));
-            background-size: 200% 200%;
-            border-radius: 16px;
-            z-index: -2;
-            filter: blur(15px);
-            animation: lightning-glow 2s ease infinite;
-        }
-
-        @keyframes lightning-border {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes lightning-glow {
-            0% {
-                background-position: 0% 50%;
-                opacity: 0.7;
-            }
-
-            50% {
-                background-position: 100% 50%;
-                opacity: 1;
-            }
-
-            100% {
-                background-position: 0% 50%;
-                opacity: 0.7;
-            }
-        }
-
-        /* Dark mode */
-        .dark-mode {
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            color: #e2e8f0;
-        }
-
-        .dark-mode .gradient-card {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            border: 1px solid rgba(118, 75, 162, 0.3);
-        }
-
-        .dark-mode input {
-            background-color: #2d3748 !important;
-            border-color: #4a5568 !important;
-            color: #e2e8f0 !important;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Progress Bar Animation */
-        .progress-bar-fill {
-            transition: width 1s ease-in-out;
-        }
-    </style>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="splash.css">
 </head>
 
-<body class="font-poppins bg-gray-100 min-h-screen transition-colors duration-300">
-    <div class="container mx-auto px-4 py-6 max-w-4xl">
-        <header class="text-center mb-8 relative">
-            <a href="index.html"
-                class="absolute left-0 top-1/2 transform -translate-y-1/2 gradient-button p-2 rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:shadow-xl z-10">
-                <i class="fas fa-arrow-left"></i>
-            </a>
+<body class="font-poppins bg-white text-gray-900 min-h-screen">
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">C&N</div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6 max-w-7xl">
+        <header class="text-center mb-8">
             <div class="lightning-banner">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold outlined-text">Wishlist Impian</h1>
-            </div>
-            <div class="absolute right-0 top-1/2 transform -translate-y-1/2">
-                <button id="darkModeToggle"
-                    class="p-2 rounded-full gradient-button text-gray-700 dark:text-yellow-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 shadow-lg hover:shadow-xl">
-                    <i class="fas fa-moon"></i>
-                </button>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold outlined-text text-white">Wishlist Impian</h1>
             </div>
         </header>
 
-        <!-- Balance Card -->
-        <div class="gradient-card rounded-xl shadow-lg p-6 mb-8 transition-all duration-300 hover:shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
-                <div class="w-full md:w-1/2">
-                    <label class="block text-sm font-bold text-indigo-500 uppercase tracking-wider mb-1">Total Tabungan
-                        Saat Ini</label>
-                    <h2 id="balanceDisplay" class="text-3xl sm:text-4xl font-bold gradient-text mb-4 tracking-tight">Rp
-                        0
-                    </h2>
+        <main class="relative bg-white border border-gray-300 rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl text-gray-900">
+            <!-- Dark Mode Toggle and Navigation Buttons -->
+            <div class="flex justify-end mb-4">
+                <a href="index.html" id="homeBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="notes.html" id="notesBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-file-alt"></i>
+                </a>
+                <a href="scheduler.html" id="schedulerBtn"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl mr-2 flex items-center justify-center">
+                    <i class="fas fa-calendar-alt"></i>
+                </a>
+                <button id="darkModeToggle"
+                    class="p-2 rounded-full bg-black text-white hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
 
-                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Kelola
-                        Tabungan</label>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <div class="relative flex-grow">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="text-gray-400 font-bold">Rp</span>
+            <!-- Balance Card -->
+            <div class="rounded-xl shadow-lg p-6 mb-8 transition-all duration-300 hover:shadow-xl">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-1">Total Tabungan
+                            Saat Ini</label>
+                        <h2 id="balanceDisplay" class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 tracking-tight">Rp
+                            0
+                        </h2>
+
+                        <label class="block text-xs font-medium text-gray-500 mb-2">Kelola
+                            Tabungan</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <div class="relative flex-grow">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-400 font-bold">Rp</span>
+                                </div>
+                                <input type="number" id="savingsInput"
+                                    class="block w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-gray-900"
+                                    placeholder="Nominal" min="0">
                             </div>
-                            <input type="number" id="savingsInput"
-                                class="block w-full pl-10 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 transition-all font-bold text-gray-700 dark:text-white"
-                                placeholder="Nominal" min="0">
-                        </div>
-                        <div class="flex gap-2">
-                            <button id="addSavingsBtn"
-                                class="flex-1 sm:flex-none bg-green-500 hover:bg-green-600 text-white px-4 py-2.5 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2">
-                                <i class="fas fa-plus"></i> Tabung
-                            </button>
-                            <button id="withdrawSavingsBtn"
-                                class="flex-1 sm:flex-none bg-orange-500 hover:bg-orange-600 text-white px-4 py-2.5 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2">
-                                <i class="fas fa-minus"></i> Tarik
-                            </button>
+                            <div class="flex gap-2">
+                                <button id="addSavingsBtn"
+                                    class="flex-1 sm:flex-none bg-black text-white hover:bg-gray-800 px-4 py-2.5 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2">
+                                    <i class="fas fa-plus"></i> Tabung
+                                </button>
+                                <button id="withdrawSavingsBtn"
+                                    class="flex-1 sm:flex-none bg-black text-white hover:bg-gray-800 px-4 py-2.5 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2">
+                                    <i class="fas fa-minus"></i> Tarik
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="w-full md:w-1/2 text-right flex flex-col justify-center h-full pt-2">
-                    <label class="block text-sm font-bold text-indigo-500 uppercase tracking-wider mb-1">Total Target
-                        Wishlist</label>
-                    <h2 id="totalTarget" class="text-2xl sm:text-3xl font-bold gradient-text">Rp 0</h2>
-                    <p class="text-xs text-gray-400 mt-1" id="progressText">Tercapai 0%</p>
-                </div>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700 mt-6 overflow-hidden">
-                <div id="totalProgressBar"
-                    class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full progress-bar-fill shadow-lg"
-                    style="width: 0%"></div>
-            </div>
-        </div>
-
-        <!-- Add New Item Form -->
-        <div class="gradient-card rounded-xl shadow-lg p-6 mb-8 transition-all duration-300 hover:shadow-xl">
-            <h3 class="text-lg font-bold mb-4 gradient-text"><i
-                    class="fas fa-plus-circle mr-2 text-indigo-500"></i>Tambah Keinginan Baru</h3>
-            <form id="addItemForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="md:col-span-2">
-                    <input type="text" id="itemName" required
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        placeholder="Nama Barang / Keinginan">
-                </div>
-                <div>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="text-gray-400">Rp</span>
-                        </div>
-                        <input type="number" id="itemPrice" required min="0"
-                            class="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                            placeholder="Harga">
+                    <div class="w-full md:w-1/2 text-right flex flex-col justify-center h-full pt-2">
+                        <label class="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-1">Total Target
+                            Wishlist</label>
+                        <h2 id="totalTarget" class="text-2xl sm:text-3xl font-bold text-gray-900">Rp 0</h2>
+                        <p class="text-xs text-gray-500 mt-1" id="progressText">Tercapai 0%</p>
                     </div>
                 </div>
-                <div class="md:col-span-3">
-                    <button type="submit"
-                        class="w-full gradient-button py-3 rounded-lg font-bold text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                        Simpan ke Wishlist
-                    </button>
+                <div class="w-full bg-gray-200 rounded-full h-3 mt-6 overflow-hidden">
+                    <div id="totalProgressBar"
+                        class="bg-black h-3 rounded-full progress-bar-fill shadow-lg"
+                        style="width: 0%"></div>
                 </div>
-            </form>
-        </div>
+            </div>
 
-        <!-- Wishlist Items -->
-        <div id="wishlistContainer" class="space-y-4">
-            <!-- Items will be injected here via JS -->
-        </div>
+            <!-- Add New Item Form -->
+            <div class="rounded-xl shadow-lg p-6 mb-8 transition-all duration-300 hover:shadow-xl">
+                <h3 class="text-lg font-bold mb-4 text-gray-900"><i
+                        class="fas fa-plus-circle mr-2 text-gray-700"></i>Tambah Keinginan Baru</h3>
+                <form id="addItemForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <input type="text" id="itemName" required
+                            class="w-full p-3 border bg-white border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-gray-900"
+                            placeholder="Nama Barang / Keinginan">
+                    </div>
+                    <div>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-400">Rp</span>
+                            </div>
+                            <input type="number" id="itemPrice" required min="0"
+                                class="w-full pl-10 p-3 border bg-white border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm text-gray-900"
+                                placeholder="Harga">
+                        </div>
+                    </div>
+                    <div class="md:col-span-3">
+                        <button type="submit"
+                            class="w-full bg-black text-white hover:bg-gray-800 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                            Simpan ke Wishlist
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-        <!-- Empty State -->
-        <div id="emptyState" class="hidden text-center py-10">
-            <i class="fas fa-gift text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
-            <p class="text-gray-500 dark:text-gray-400 text-lg">Belum ada wishlist. Ayo tambahkan mimpi-mimpimu!</p>
-        </div>
+            <!-- Wishlist Items -->
+            <div id="wishlistContainer" class="space-y-4">
+                <!-- Items will be injected here via JS -->
+            </div>
 
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-10">
+                <i class="fas fa-gift text-6xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500 text-lg">Belum ada wishlist. Ayo tambahkan mimpi-mimpimu!</p>
+            </div>
+        </main>
     </div>
 
     <script src="wishlist.js"></script>
