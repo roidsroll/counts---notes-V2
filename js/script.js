@@ -50,8 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
     darkModeToggle.addEventListener('click', toggleDarkMode);
 
     // Add balance event listeners
-    startingBalanceInput.addEventListener('input', function(e) {
+    startingBalanceInput.addEventListener('input', function () {
         formatInputToRupiah(this);
+        startingBalance = parseRupiahInputValue(this.value);
         calculateBalances();
         saveDataToLocalStorage();
     });
@@ -342,7 +343,10 @@ function updateMobileEventListeners() {
     });
 
     hargaInputs.forEach(input => {
-        input.addEventListener('input', calculateMobileCardTotal);
+        input.addEventListener('input', function (e) {
+            formatInputToRupiah(this);
+            calculateMobileCardTotal(e);
+        });
     });
 
     deleteButtons.forEach(button => {
@@ -454,7 +458,7 @@ function calculateRowTotal(event) {
     const totalCell = row.querySelector('.total-cell');
 
     const jumlah = parseFloat(jumlahInput.value) || 0;
-    const harga = parseFloat(hargaInput.value) || 0;
+    const harga = parseRupiahInputValue(hargaInput.value);
     const total = jumlah * harga;
 
     totalCell.textContent = formatRupiah(total);
@@ -471,13 +475,23 @@ function calculateMobileCardTotal(event) {
     const totalCell = card.querySelector('.total-cell');
 
     const jumlah = parseFloat(jumlahInput.value) || 0;
-    const harga = parseFloat(hargaInput.value) || 0;
+    const harga = parseRupiahInputValue(hargaInput.value);
     const total = jumlah * harga;
 
     totalCell.textContent = formatRupiah(total);
     calculateTotal();
     calculateBalances();
     saveDataToLocalStorage();
+}
+
+function parseRupiahInputValue(value) {
+    const digitsOnly = String(value || '').replace(/\D/g, '');
+    return digitsOnly ? parseInt(digitsOnly, 10) : 0;
+}
+
+function formatInputToRupiah(input) {
+    const numericValue = parseRupiahInputValue(input.value);
+    input.value = numericValue === 0 ? '0' : numericValue.toLocaleString('id-ID');
 }
 
 // Calculate total amount
@@ -694,7 +708,7 @@ function downloadAsPDF() {
             const totalCell = card.querySelector('.total-cell');
 
             const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
+            const harga = parseRupiahInputValue(hargaInput.value);
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
             items.push({
@@ -716,7 +730,7 @@ function downloadAsPDF() {
             const totalCell = row.querySelector('.total-cell');
 
             const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
+            const harga = parseRupiahInputValue(hargaInput.value);
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
             items.push({
@@ -850,7 +864,7 @@ function downloadAsExcel() {
             const totalCell = card.querySelector('.total-cell');
 
             const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
+            const harga = parseRupiahInputValue(hargaInput.value);
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
             items.push({
@@ -872,7 +886,7 @@ function downloadAsExcel() {
             const totalCell = row.querySelector('.total-cell');
 
             const jumlah = parseFloat(jumlahInput.value) || 0;
-            const harga = parseFloat(hargaInput.value) || 0;
+            const harga = parseRupiahInputValue(hargaInput.value);
             const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
             items.push({
@@ -1068,27 +1082,28 @@ function saveDataToLocalStorage() {
 
 // Save starting balance to localStorage
 function saveStartingBalance(amount) {
-    startingBalance = parseFloat(amount) || 0;
+    startingBalance = parseRupiahInputValue(amount);
     localStorage.setItem('startingBalance', startingBalance);
-    startingBalanceInput.value = startingBalance;
+    startingBalanceInput.value = startingBalance.toString();
+    formatInputToRupiah(startingBalanceInput);
 }
 
 // Load starting balance from localStorage
 function loadStartingBalance() {
     const savedBalance = localStorage.getItem('startingBalance');
     if (savedBalance !== null) {
-        startingBalance = parseFloat(savedBalance) || 0;
-        startingBalanceInput.value = startingBalance;
+        startingBalance = parseRupiahInputValue(savedBalance);
     } else {
         startingBalance = 0;
-        startingBalanceInput.value = startingBalance;
     }
+    startingBalanceInput.value = startingBalance.toString();
+    formatInputToRupiah(startingBalanceInput);
     return startingBalance;
 }
 
 // Set starting balance function
 function setStartingBalance() {
-    const amount = parseFloat(startingBalanceInput.value) || 0;
+    const amount = parseRupiahInputValue(startingBalanceInput.value);
     saveStartingBalance(amount);
     calculateBalances();
 }
@@ -1258,7 +1273,7 @@ function loadDataFromLocalStorage() {
 
                 const barang = nameInput.value;
                 const jumlah = parseFloat(jumlahInput.value) || 0;
-                const harga = parseFloat(hargaInput.value) || 0;
+                const harga = parseRupiahInputValue(hargaInput.value);
                 const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
                 message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
@@ -1273,7 +1288,7 @@ function loadDataFromLocalStorage() {
 
                 const barang = nameInput.value;
                 const jumlah = parseFloat(jumlahInput.value) || 0;
-                const harga = parseFloat(hargaInput.value) || 0;
+                const harga = parseRupiahInputValue(hargaInput.value);
                 const total = parseFloat(totalCell.textContent.replace(/[^0-9,-]/g, '').replace(',', '.')) || 0;
 
                 message += `No : ${index + 1}\n\u{1F6CD}\u{FE0F} Barang       : ${barang}\n\u{1F522} Jumlah        : ${jumlah}\n\u{1F4B0} Harga Satuan  : Rp ${harga.toLocaleString('id-ID')}\n\u{1F4B5} Total Harga   : Rp ${total.toLocaleString('id-ID')}\n------------------------\n`;
