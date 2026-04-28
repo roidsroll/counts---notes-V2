@@ -13,8 +13,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#03AED2">
 
         <script>
         if ("serviceWorker" in navigator) {
@@ -34,13 +34,24 @@
                 extend: {
                     fontFamily: {
                         'poppins': ['Poppins', 'sans-serif']
+                    },
+                    borderRadius: {
+                        'none': '0',
+                        'sm': '20px',
+                        'DEFAULT': '20px',
+                        'md': '20px',
+                        'lg': '20px',
+                        'xl': '20px',
+                        '2xl': '20px',
+                        '3xl': '20px',
+                        'full': '20px',
                     }
                 }
             }
         }
     </script>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="splash.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/splash.css">
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
@@ -59,27 +70,58 @@
             </div>
         </header>
 
-        <div class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
-            <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Panduan Pengguna dan Fitur yang tersedia
-            </h2>
-            <ul class="list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                <li><i class="fas fa-plus-circle mr-2 text-green-500"></i><b>Tambah Barang:</b> Tambah baris item baru.
-                </li>
-                <li><i class="fas fa-trash-alt mr-2 text-red-500"></i><b>Hapus Barang:</b> Hapus baris item.</li>
-                <li><i class="fas fa-copy mr-2 text-yellow-500"></i><b>Salin Barang:</b> Duplikasi baris item.</li>
-                <li><i class="fas fa-file-download mr-2 text-indigo-500"></i><b>Ekspor Data:</b> Simpan data ke
-                    PDF/Excel.</li>
-                <li><i class="fab fa-whatsapp mr-2 text-green-600"></i><b>Bagikan:</b> Kirim data via WhatsApp. dengan
-                    klik icon share</li>
-                <li><i class="fas fa-mobile-alt mr-2 text-teal-500"></i><b>Responsif:</b> Tampilan menyesuaikan
-                    perangkat.</li>
-            </ul>
-        </div>
+        <!-- Floating Action Button for Guide (Bottom Left) -->
+        <button id="guideFab"
+            class="fixed bottom-6 left-6 w-14 h-14 bg-[#03AED2] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 z-50 group">
+            <i class="fas fa-question text-xl"></i>
+            <span class="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Panduan Fitur</span>
+        </button>
 
-        <!-- Audio element for sound effects -->
-        <audio id="addItemSound" preload="auto">
-            <source src="https://assets.mixkit.co/sfx/preview/mixkit-coins-handling-1938.mp3" type="audio/mpeg">
-        </audio>
+        <!-- Guide Modal -->
+        <div id="guideModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Fitur & Panduan</h2>
+                        <button id="closeGuideBtn" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-plus-circle text-green-500 text-lg w-6 text-center"></i>
+                            <span><b>Tambah Barang:</b> Tambah baris item baru.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-trash-alt text-red-500 text-lg w-6 text-center"></i>
+                            <span><b>Hapus Barang:</b> Hapus baris item.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-copy text-yellow-500 text-lg w-6 text-center"></i>
+                            <span><b>Salin Barang:</b> Duplikasi baris item.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-file-download text-indigo-500 text-lg w-6 text-center"></i>
+                            <span><b>Ekspor Data:</b> Simpan data ke PDF/Excel.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fab fa-whatsapp text-green-600 text-lg w-6 text-center"></i>
+                            <span><b>Bagikan:</b> Kirim via WhatsApp via icon share.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-mobile-alt text-teal-500 text-lg w-6 text-center"></i>
+                            <span><b>Responsif:</b> Tampilan mobile-friendly.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 text-center">
+                    <button id="gotItBtn" class="w-full py-2 bg-[#03AED2] text-white rounded-lg font-bold hover:bg-[#028ba8] transition-colors">
+                        Mengerti
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <main class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
 
@@ -289,7 +331,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

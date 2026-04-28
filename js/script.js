@@ -15,6 +15,12 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 const validationMessage = document.getElementById('validationMessage');
 const addItemSound = document.getElementById('addItemSound');
 
+// Guide Modal Elements
+const guideFab = document.getElementById('guideFab');
+const guideModal = document.getElementById('guideModal');
+const closeGuideBtn = document.getElementById('closeGuideBtn');
+const gotItBtn = document.getElementById('gotItBtn');
+
 // Balance-related DOM elements
 const startingBalanceInput = document.getElementById('startingBalanceInput');
 const setBalanceBtn = document.getElementById('setBalanceBtn');
@@ -59,6 +65,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add resize listener
     window.addEventListener('resize', checkMobileView);
+
+    // Guide Modal Logic
+    if (guideFab && guideModal) {
+        guideFab.addEventListener('click', () => {
+            guideModal.classList.remove('hidden');
+        });
+
+        const closeGuide = () => {
+            guideModal.classList.add('hidden');
+        };
+
+        closeGuideBtn.addEventListener('click', closeGuide);
+        gotItBtn.addEventListener('click', closeGuide);
+        guideModal.addEventListener('click', (e) => {
+            if (e.target === guideModal) closeGuide();
+        });
+    }
 
     // Calculate initial total
     calculateTotal();
