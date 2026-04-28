@@ -96,6 +96,57 @@ function checkMobileView() {
     }
 }
 
+function getMobileCardMarkup({
+    title = 'Barang',
+    name = '',
+    jumlah = '1',
+    harga = '0',
+    total = '0',
+    comment = ''
+}) {
+    return `
+        <div class="mobile-card-header">
+            <h3 class="font-semibold text-gray-800 dark:text-white">${title}</h3>
+            <div class="mobile-card-actions">
+                <button class="copy-card mobile-card-action p-2 text-yellow-500 hover:bg-yellow-100 dark:hover:bg-yellow-900 transition-colors duration-300" type="button" aria-label="Salin barang">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <button class="add-comment-card mobile-card-action p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-300" type="button" aria-label="Tambah catatan">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="delete-card mobile-card-action p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 transition-colors duration-300" type="button" aria-label="Hapus barang">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-card-content">
+            <div class="mobile-card-input mobile-card-input--full">
+                <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
+                <input type="text" class="p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang" value="${name}">
+            </div>
+            <div class="mobile-card-input">
+                <label class="text-gray-700 dark:text-gray-300">Jumlah</label>
+                <input type="number" min="1" class="p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="${jumlah}">
+            </div>
+            <div class="mobile-card-input">
+                <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
+                <input type="text" class="p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="${harga}">
+            </div>
+            <div class="mobile-card-input mobile-card-input--full">
+                <label class="text-gray-700 dark:text-gray-300">Total</label>
+                <div class="mobile-card-total total-cell font-medium text-sm whitespace-nowrap">${total}</div>
+            </div>
+            <div class="comment-section-card hidden mobile-card-input mobile-card-input--full">
+                <textarea class="comment-input-card w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2">${comment}</textarea>
+                <div class="flex flex-col-reverse sm:flex-row justify-end gap-2 mt-2">
+                    <button class="save-comment-card w-full sm:w-auto px-3 py-2 text-xs bg-green-500 text-white rounded-lg hover:bg-green-600" type="button">Simpan</button>
+                    <button class="cancel-comment-card w-full sm:w-auto px-3 py-2 text-xs bg-gray-500 text-white rounded-lg hover:bg-gray-600" type="button">Batal</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // Add new item row
 function addNewItemRow() {
     // Play sound effect
@@ -159,47 +210,7 @@ function addNewDesktopRow() {
 function addNewMobileCard() {
     const newCard = document.createElement('div');
     newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
-    newCard.innerHTML = `
-        <div class="mobile-card-header">
-            <h3 class="font-semibold text-gray-800 dark:text-white">Barang Baru</h3>
-            <div class="flex gap-1">
-                <button class="copy-card p-2 text-yellow-500 hover:bg-yellow-100 dark:hover:bg-yellow-900 rounded-full transition-colors duration-300">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <button class="add-comment-card p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-full transition-colors duration-300">
-                    <i class="fas fa-plus"></i>
-                </button>
-                <button class="delete-card p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-card-content">
-            <div class="mobile-card-input">
-                <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
-                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
-            </div>
-            <div class="mobile-card-input">
-                <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
-            </div>
-            <div class="mobile-card-input">
-                <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
-            </div>
-            <div class="mobile-card-input">
-                <label class="text-gray-700 dark:text-gray-300">Total</label>
-                <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">0</div>
-            </div>
-            <div class="comment-section-card hidden mt-2">
-                <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
-                <div class="flex justify-end gap-1 mt-1">
-                    <button class="save-comment-card px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600">Simpan</button>
-                    <button class="cancel-comment-card px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600">Batal</button>
-                </div>
-            </div>
-        </div>
-    `;
+    newCard.innerHTML = getMobileCardMarkup({ title: 'Barang Baru' });
 
     mobileItemCards.appendChild(newCard);
     updateMobileEventListeners();
@@ -387,47 +398,13 @@ function updateMobileEventListeners() {
             // Create a new card with the same values
             const newCard = document.createElement('div');
             newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
-            newCard.innerHTML = `
-                <div class="mobile-card-header">
-                    <h3 class="font-semibold text-gray-800 dark:text-white">Barang</h3>
-                    <div class="flex gap-1">
-                        <button class="copy-card p-2 text-yellow-500 hover:bg-yellow-100 dark:hover:bg-yellow-900 rounded-full transition-colors duration-300">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                        <button class="add-comment-card p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-full transition-colors duration-300">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <button class="delete-card p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mobile-card-content">
-                    <div class="mobile-card-input">
-                        <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
-                        <input type="text" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" value="${nameInput.value}">
-                    </div>
-                    <div class="mobile-card-input">
-                        <label class="text-gray-700 dark:text-gray-300">Jumlah</label>
-                        <input type="number" min="1" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" value="${jumlahInput.value}">
-                    </div>
-                    <div class="mobile-card-input">
-                        <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                        <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
-                    </div>
-                    <div class="mobile-card-input">
-                        <label class="text-gray-700 dark:text-gray-300">Total</label>
-                        <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">0</div>
-                    </div>
-                    <div class="comment-section-card hidden mt-2">
-                        <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
-                        <div class="flex justify-end gap-1 mt-1">
-                            <button class="save-comment-card px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600">Simpan</button>
-                            <button class="cancel-comment-card px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600">Batal</button>
-                        </div>
-                    </div>
-                </div>
-            `;
+            newCard.innerHTML = getMobileCardMarkup({
+                title: 'Barang',
+                name: nameInput.value,
+                jumlah: jumlahInput.value,
+                harga: hargaInput.value || '0',
+                total: '0'
+            });
 
             // Insert the new card after the current card
             card.parentNode.insertBefore(newCard, card.nextSibling);
@@ -606,47 +583,13 @@ function renderMobileCards() {
 
         const newCard = document.createElement('div');
         newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
-        newCard.innerHTML = `
-            <div class="mobile-card-header">
-                <h3 class="font-semibold text-gray-800 dark:text-white">Barang</h3>
-                <div class="flex gap-1">
-                    <button class="copy-card p-2 text-yellow-500 hover:bg-yellow-100 dark:hover:bg-yellow-900 rounded-full transition-colors duration-300">
-                        <i class="fas fa-copy"></i>
-                    </button>
-                    <button class="add-comment-card p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-full transition-colors duration-300">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <button class="delete-card p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="mobile-card-content">
-                <div class="mobile-card-input">
-                    <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
-                    <input type="text" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang" value="${nameInput.value}">
-                </div>
-                <div class="mobile-card-input">
-                    <label class="text-gray-700 dark:text-gray-300">Jumlah</label>
-                    <input type="number" min="1" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="${jumlahInput.value}">
-                </div>
-                <div class="mobile-card-input">
-                    <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                    <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
-                </div>
-                <div class="mobile-card-input">
-                    <label class="text-gray-700 dark:text-gray-300">Total</label>
-                    <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">${totalCell.textContent}</div>
-                </div>
-                <div class="comment-section-card hidden mt-2">
-                    <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
-                    <div class="flex justify-end gap-1 mt-1">
-                        <button class="save-comment-card px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600">Simpan</button>
-                        <button class="cancel-comment-card px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600">Batal</button>
-                    </div>
-                </div>
-            </div>
-        `;
+        newCard.innerHTML = getMobileCardMarkup({
+            title: 'Barang',
+            name: nameInput.value,
+            jumlah: jumlahInput.value,
+            harga: hargaInput.value || '0',
+            total: totalCell.textContent
+        });
 
         mobileItemCards.appendChild(newCard);
     });
@@ -1125,47 +1068,14 @@ function loadDataFromLocalStorage() {
             data.forEach(item => {
                 const newCard = document.createElement('div');
                 newCard.className = `mobile-card gradient-card fade-in ${isDarkMode ? 'dark-mode' : ''}`;
-                newCard.innerHTML = `
-                    <div class="mobile-card-header">
-                        <h3 class="font-semibold text-gray-800 dark:text-white">Barang</h3>
-                        <div class="flex gap-1">
-                            <button class="copy-card p-2 text-yellow-500 hover:bg-yellow-100 dark:hover:bg-yellow-900 rounded-full transition-colors duration-300">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <button class="add-comment-card p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-full transition-colors duration-300">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                            <button class="delete-card p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mobile-card-content">
-                        <div class="mobile-card-input">
-                            <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
-                            <input type="text" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang" value="${item.name}">
-                        </div>
-                        <div class="mobile-card-input">
-                            <label class="text-gray-700 dark:text-gray-300">Jumlah</label>
-                            <input type="number" min="1" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="${item.jumlah}">
-                        </div>
-                        <div class="mobile-card-input">
-                            <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                            <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
-                        </div>
-                        <div class="mobile-card-input">
-                            <label class="text-gray-700 dark:text-gray-300">Total</label>
-                            <div class="p-2 font-medium total-cell text-sm">${item.total}</div>
-                        </div>
-                        <div class="comment-section-card hidden mt-2">
-                            <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
-                            <div class="flex justify-end gap-1 mt-1">
-                                <button class="save-comment-card px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600">Simpan</button>
-                                <button class="cancel-comment-card px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600">Batal</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                newCard.innerHTML = getMobileCardMarkup({
+                    title: 'Barang',
+                    name: item.name,
+                    jumlah: item.jumlah,
+                    harga: item.harga || '0',
+                    total: item.total,
+                    comment: item.comment || ''
+                });
                 mobileItemCards.appendChild(newCard);
             });
             updateMobileEventListeners();

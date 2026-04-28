@@ -53,16 +53,16 @@
 </head>
 
 <body class="font-poppins bg-gray-100 min-h-screen transition-colors duration-300">
-    <div class="container mx-auto px-4 py-6 max-w-4xl">
-        <header class="text-center mb-8">
-            <div class="inline-flex items-center gap-3 sm:gap-4">
+    <div class="container mx-auto px-3 py-4 sm:px-4 sm:py-6 max-w-4xl">
+        <header class="text-center mb-6 sm:mb-8">
+            <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4">
                 <div class="lightning-banner">
                     <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold outlined-text">Count & Notes</h1>
                 </div>
                 <button id="guideFab" type="button" aria-label="Panduan fitur"
                     class="relative group shrink-0 w-10 h-10 sm:w-11 sm:h-11 bg-[#03AED2] text-white rounded-full shadow-xl flex items-center justify-center hover:scale-105 transition-transform duration-300">
                     <i class="fas fa-question text-base sm:text-lg"></i>
-                    <span class="absolute left-full ml-3 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">Panduan Fitur</span>
+                    <span class="absolute left-full ml-3 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap hidden sm:block">Panduan Fitur</span>
                 </button>
             </div>
         </header>
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <main class="gradient-card rounded-xl shadow-lg p-4 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
+        <main class="gradient-card rounded-xl shadow-lg p-3 sm:p-6 mb-8 transition-all duration-300 hover:shadow-xl">
 
 
             <!-- App Navigation -->
@@ -141,9 +141,6 @@
                     </a>
                 </nav>
                 <div class="app-toolbar-actions">
-                    <button id="shareBtn" class="app-icon-button" type="button" aria-label="Bagikan">
-                        <i class="fas fa-share-alt"></i>
-                    </button>
                     <button id="darkModeToggle" class="app-icon-button app-icon-button--muted" type="button" aria-label="Ubah mode gelap">
                         <i class="fas fa-moon"></i>
                     </button>
@@ -152,7 +149,7 @@
 
             <!-- Balance Controls -->
             <div
-                class="balance-controls mb-8 p-6 gradient-card rounded-xl shadow-sm border border-indigo-100 dark:border-gray-700">
+                class="balance-controls mb-6 sm:mb-8 p-4 sm:p-6 gradient-card rounded-xl shadow-sm border border-indigo-100 dark:border-gray-700">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
                     <!-- Saldo Awal Input -->
                     <div class="relative group">
@@ -255,7 +252,7 @@
             <div id="mobileItemCards" class="mobile-cards-container"></div>
 
             <!-- Mobile Total -->
-            <div class="mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-xl sm:hidden shadow-lg">
+            <div class="mobile-total-summary mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-xl sm:hidden shadow-lg">
                 <span class="font-semibold text-white">Total Keseluruhan:</span>
                 <span id="totalAmountMobile" class="font-bold text-xl text-white whitespace-nowrap text-right">Rp
                     0</span>
@@ -264,8 +261,16 @@
             <!-- Add Item Button -->
             <div class="mt-4 flex justify-center">
                 <button id="addItemBtn"
-                    class="gradient-button flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    class="gradient-button w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-plus"></i> Tambah Barang
+                </button>
+            </div>
+
+            <div class="mt-3 flex justify-center">
+                <button id="shareBtn"
+                    class="gradient-button w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl"
+                    type="button" aria-label="Bagikan ke WhatsApp">
+                    <i class="fab fa-whatsapp"></i> Bagikan ke WhatsApp
                 </button>
             </div>
 
@@ -273,11 +278,11 @@
             <!-- Download Buttons -->
             <div class="mt-6 text-center flex flex-col sm:flex-row justify-center gap-4">
                 <button id="downloadPdfBtn"
-                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-xl hover:shadow-2xl">
+                    class="gradient-button w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-xl hover:shadow-2xl">
                     <i class="fas fa-download"></i> Simpan ke PDF
                 </button>
                 <button id="downloadExcelBtn"
-                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-xl hover:shadow-2xl">
+                    class="gradient-button w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-xl hover:shadow-2xl">
                     <i class="fas fa-file-excel"></i> Simpan ke EXCEL
                 </button>
             </div>
@@ -285,8 +290,8 @@
 
         <!-- WhatsApp Share Modal -->
         <div id="shareModal"
-            class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+            class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 p-4">
+            <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-md">
                 <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Bagikan ke WhatsApp</h2>
                 <div class="mb-4">
                     <label for="waNumber" class="block text-sm font-medium text-gray-700 dark:text-gray-300">No.
@@ -300,10 +305,10 @@
                     <textarea id="waMessage" rows="10"
                         class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                 </div>
-                <div class="flex justify-end gap-4">
+                <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 sm:gap-4">
                     <button id="closeModalBtn"
-                        class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Batal</button>
-                    <button id="sendWaBtn" class="px-4 py-2 gradient-button text-white rounded-lg">Kirim</button>
+                        class="w-full sm:w-auto px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Batal</button>
+                    <button id="sendWaBtn" class="w-full sm:w-auto px-4 py-2 gradient-button text-white rounded-lg">Kirim</button>
                 </div>
             </div>
         </div>

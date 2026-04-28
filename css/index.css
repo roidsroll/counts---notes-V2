@@ -48,32 +48,40 @@
 
         .app-tabs {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 8px;
-            padding: 8px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, rgba(3, 174, 210, 0.12), rgba(255, 255, 255, 0.96));
-            border: 1px solid rgba(3, 174, 210, 0.24);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+            padding: 2px 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .app-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .app-tab {
-            flex: 1 1 120px;
-            min-width: 0;
+            flex: 0 0 auto;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 16px;
-            border-radius: 18px;
-            color: #1f2937;
+            gap: 0;
+            padding: 9px 14px;
+            border-radius: 9999px;
+            color: #0f172a;
             font-weight: 700;
+            font-size: 0.9rem;
             text-decoration: none;
             transition: all 0.25s ease;
+            background: rgba(3, 174, 210, 0.1);
+            border: 1px solid rgba(3, 174, 210, 0.18);
+            white-space: nowrap;
         }
 
         .app-tab:hover {
-            background: rgba(3, 174, 210, 0.14);
+            background: rgba(3, 174, 210, 0.18);
             color: #0284a3;
             transform: translateY(-1px);
         }
@@ -81,7 +89,12 @@
         .app-tab.active {
             background: #00c6f0;
             color: #ffffff;
-            box-shadow: 0 10px 24px rgba(3, 174, 210, 0.24);
+            border-color: #00c6f0;
+            box-shadow: 0 8px 18px rgba(3, 174, 210, 0.2);
+        }
+
+        .app-tab i {
+            display: none;
         }
 
         .app-tab-label {
@@ -325,17 +338,19 @@
         }
 
         .dark-mode .app-tabs {
-            background: rgba(15, 23, 42, 0.78);
-            border-color: rgba(3, 174, 210, 0.35);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
         }
 
         .dark-mode .app-tab {
             color: #e2e8f0;
+            background: rgba(3, 174, 210, 0.14);
+            border-color: rgba(3, 174, 210, 0.2);
         }
 
         .dark-mode .app-tab:hover {
-            background: rgba(3, 174, 210, 0.18);
+            background: rgba(3, 174, 210, 0.22);
             color: #67e8f9;
         }
 
@@ -350,6 +365,41 @@
 
         .fade-in {
             animation: fadeIn 0.3s ease-in;
+        }
+
+        .mobile-cards-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .mobile-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .mobile-card-action {
+            width: 38px;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .mobile-card-total {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0.75rem 0.9rem;
+            border-radius: 16px;
+            background: rgba(3, 174, 210, 0.08);
+            border: 1px solid rgba(3, 174, 210, 0.16);
+        }
+
+        .dark-mode .mobile-card-total {
+            background: rgba(3, 174, 210, 0.14);
+            border-color: rgba(103, 232, 249, 0.18);
         }
 
         @keyframes fadeIn {
@@ -380,6 +430,51 @@
         }
 
         @media (max-width: 640px) {
+            .container {
+                padding-left: 0.85rem;
+                padding-right: 0.85rem;
+            }
+
+            .app-toolbar {
+                margin-bottom: 18px;
+            }
+
+            .app-tabs {
+                gap: 8px;
+                padding: 2px 0 6px;
+            }
+
+            .app-tab {
+                min-height: auto;
+                padding: 9px 13px;
+                font-size: 0.92rem;
+            }
+
+            .app-tab-label {
+                white-space: nowrap;
+                line-height: 1;
+                text-align: center;
+            }
+
+            .app-toolbar-actions {
+                justify-content: stretch;
+            }
+
+            .app-toolbar-actions>* {
+                flex: 1 1 0;
+                width: auto;
+                height: 46px;
+                border-radius: 14px;
+            }
+
+            .balance-controls .grid {
+                gap: 0.9rem;
+            }
+
+            .balance-controls label {
+                font-size: 0.72rem;
+            }
+
             .desktop-table {
                 display: none;
             }
@@ -388,9 +483,9 @@
                 display: block;
                 border: 1px solid #e5e7eb;
                 border-radius: 20px;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+                padding: 0.95rem;
+                margin-bottom: 0;
+                box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
             }
 
             .mobile-card.dark-mode {
@@ -400,28 +495,49 @@
             .mobile-card-header {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
-                margin-bottom: 0.5rem;
+                align-items: flex-start;
+                gap: 0.75rem;
+                margin-bottom: 0.8rem;
             }
 
             .mobile-card-content {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
 
             .mobile-card-input {
-                margin-bottom: 0.5rem;
+                margin-bottom: 0;
+            }
+
+            .mobile-card-input--full,
+            .comment-section-card {
+                grid-column: 1 / -1;
             }
 
             .mobile-card-input label {
                 display: block;
-                margin-bottom: 0.25rem;
-                font-weight: 500;
-                font-size: 0.875rem;
+                margin-bottom: 0.35rem;
+                font-weight: 700;
+                font-size: 0.76rem;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
             }
 
-            .mobile-card-input input {
+            .mobile-card-input input,
+            .mobile-card-input textarea {
                 width: 100%;
+                min-height: 44px;
+            }
+
+            .mobile-total-summary {
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+        }
+
+        @media (min-width: 480px) and (max-width: 640px) {
+            .mobile-card-content {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
