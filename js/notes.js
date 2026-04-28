@@ -13,13 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const floatingAddNoteBtn = document.getElementById('floatingAddNoteBtn'); // New
 
     // Splash screen logic
-    const splashScreen = document.getElementById('splash-screen');
-    if (splashScreen) {
-        setTimeout(() => {
-            splashScreen.classList.add('hidden');
-                }, 2000);
-            }
-        
             let notes = []; // Array to store notes
             let editingNoteId = null; // To track which note is being edited
         

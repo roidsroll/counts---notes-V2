@@ -34,12 +34,6 @@ let startingBalance = 0;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
-    // Splash screen logic
-    const splashScreen = document.getElementById('splash-screen');
-    setTimeout(() => {
-        splashScreen.classList.add('hidden');
-    }, 2000);
-
     // Load data from localStorage if available
     loadDataFromLocalStorage();
 

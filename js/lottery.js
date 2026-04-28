@@ -2,13 +2,6 @@ import { Wheel } from 'https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-w
 
 document.addEventListener('DOMContentLoaded', function() {
     // Splash screen logic
-    const splashScreen = document.getElementById('splash-screen');
-    if (splashScreen) {
-        setTimeout(() => {
-            splashScreen.classList.add('hidden');
-        }, 2000);
-    }
-
     // DOM Elements
     const lotteryWheelEl = document.getElementById('lotteryWheel');
     const entriesInput = document.getElementById('entriesInput');
