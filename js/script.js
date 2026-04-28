@@ -1321,16 +1321,4 @@ function loadDataFromLocalStorage() {
         shareModal.classList.add('hidden');
     });
 
-    // Google Translate
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
-    }
-
-    const translateBtn = document.getElementById('translateBtn');
-    translateBtn.addEventListener('click', () => {
-        // const googleTranslateElement = document.getElementById('google_translate_element');
-        // googleTranslateElement.classList.toggle('hidden');
-    });
-
-
 }
