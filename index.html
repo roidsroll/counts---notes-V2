@@ -159,94 +159,21 @@
             </div>
             <div id="google_translate_element"></div>
 
-            <!-- Item Table - Desktop/Tablet View -->
-            <div class="desktop-table overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="gradient-header">
-                            <th class="py-3 px-3 sm:px-4 text-left rounded-tl-lg">Nama Barang</th>
-                            <th class="py-3 px-3 sm:px-4 text-left">Jumlah</th>
-                            <th class="py-3 px-3 sm:px-4 text-left">Harga Satuan</th>
-                            <th class="py-3 px-3 sm:px-4 text-left">Total</th>
-                            <th class="py-3 px-3 sm:px-4 text-center rounded-tr-lg">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemTableBody">
-                        <!-- Rows will be added dynamically -->
-                        <tr class="border-b border-gray-200 fade-in">
-                            <td class="py-3 px-3 sm:px-4">
-                                <input type="text"
-                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
-                                    placeholder="Nama barang">
-                            </td>
-                            <td class="py-3 px-3 sm:px-4">
-                                <input type="number" min="1"
-                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input"
-                                    placeholder="0" value="1">
-                            </td>
-                            <td class="py-3 px-3 sm:px-4">
-                                <input type="number" min="0" step="100"
-                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input"
-                                    placeholder="0" value="0">
-                            </td>
-                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
-                                0
-                            </td>
-                            <td class="py-3 px-3 sm:px-4 text-center">
-                                <button
-                                    class="delete-row p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr class="gradient-header text-white font-bold">
-                            <td colspan="3" class="py-3 px-4 text-left rounded-bl-lg">Total Keseluruhan</td>
-                            <td class="py-3 px-4 whitespace-nowrap" id="totalAmount">Rp 0</td>
-                            <td class="rounded-br-lg"></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-
-            <!-- Mobile Card View -->
-            <div id="mobileItemCards" class="mobile-cards-container"></div>
-
-            <!-- Mobile Total -->
-            <div class="mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-lg sm:hidden shadow-lg">
-                <span class="font-semibold text-white">Total Keseluruhan:</span>
-                <span id="totalAmountMobile" class="font-bold text-xl text-white whitespace-nowrap text-right">Rp
-                    0</span>
-            </div>
-
-            <!-- Add Item Button -->
-            <div class="mt-4 flex justify-center">
-                <button id="addItemBtn"
-                    class="gradient-button flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
-                    <i class="fas fa-plus"></i> Tambah Barang
-                </button>
-            </div>
-
             <!-- Balance Controls -->
             <div
-                class="balance-controls mb-6 p-6 gradient-card rounded-2xl shadow-sm border border-indigo-100 dark:border-gray-700">
+                class="balance-controls mb-8 p-6 gradient-card rounded-xl shadow-sm border border-indigo-100 dark:border-gray-700">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
                     <!-- Saldo Awal Input -->
                     <div class="relative group">
-                        <label class="block text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2 ml-1">Saldo
+                        <label class="block text-xs font-bold text-[#03AED2] uppercase tracking-wider mb-2 ml-1">Saldo
                             Awal</label>
                         <div class="relative flex items-center">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <span class="text-gray-400 font-bold">Rp</span>
                             </div>
-                            <input type="number" id="startingBalanceInput"
-                                class="block w-full pl-10 pr-20 py-3 bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-600 rounded-xl focus:ring-0 focus:border-indigo-500 transition-all font-bold text-gray-700 dark:text-white"
-                                placeholder="0" value="0" min="0">
-                            <button id="setBalanceBtn"
-                                class="absolute right-1.5 top-1.5 bottom-1.5 px-4 gradient-button text-white text-xs font-bold uppercase rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center">
-                                Set
-                            </button>
+                            <input type="text" id="startingBalanceInput"
+                                class="block w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-600 rounded-xl focus:ring-0 focus:border-[#03AED2] transition-all font-bold text-gray-700 dark:text-white rupiah-input"
+                                placeholder="0" value="0">
                         </div>
                     </div>
 
@@ -282,15 +209,84 @@
                 </div>
             </div>
 
+            <!-- Item Table - Desktop/Tablet View -->
+            <div class="desktop-table overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="gradient-header">
+                            <th class="py-3 px-3 sm:px-4 text-left rounded-tl-lg">Nama Barang</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Jumlah</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Harga Satuan</th>
+                            <th class="py-3 px-3 sm:px-4 text-left">Total</th>
+                            <th class="py-3 px-3 sm:px-4 text-center rounded-tr-lg">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTableBody">
+                        <!-- Rows will be added dynamically -->
+                        <tr class="border-b border-gray-200 fade-in">
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="text"
+                                    class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
+                                    placeholder="Nama barang">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="number" min="1"
+                                    class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input"
+                                    placeholder="0" value="1">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4">
+                                <input type="text"
+                                    class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input"
+                                    placeholder="0" value="0">
+                            </td>
+                            <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
+                                0
+                            </td>
+                            <td class="py-3 px-3 sm:px-4 text-center">
+                                <button
+                                    class="delete-row p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="gradient-header text-white font-bold">
+                            <td colspan="3" class="py-3 px-4 text-left rounded-bl-xl">Total Keseluruhan</td>
+                            <td class="py-3 px-4 whitespace-nowrap" id="totalAmount">Rp 0</td>
+                            <td class="rounded-br-xl"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Mobile Card View -->
+            <div id="mobileItemCards" class="mobile-cards-container"></div>
+
+            <!-- Mobile Total -->
+            <div class="mt-4 mb-2 p-4 gradient-total flex justify-between items-center rounded-xl sm:hidden shadow-lg">
+                <span class="font-semibold text-white">Total Keseluruhan:</span>
+                <span id="totalAmountMobile" class="font-bold text-xl text-white whitespace-nowrap text-right">Rp
+                    0</span>
+            </div>
+
+            <!-- Add Item Button -->
+            <div class="mt-4 flex justify-center">
+                <button id="addItemBtn"
+                    class="gradient-button flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    <i class="fas fa-plus"></i> Tambah Barang
+                </button>
+            </div>
+
 
             <!-- Download Buttons -->
             <div class="mt-6 text-center flex flex-col sm:flex-row justify-center gap-4">
                 <button id="downloadPdfBtn"
-                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-download"></i> Simpan ke PDF
                 </button>
                 <button id="downloadExcelBtn"
-                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    class="gradient-button flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
                     <i class="fas fa-file-excel"></i> Simpan ke EXCEL
                 </button>
             </div>

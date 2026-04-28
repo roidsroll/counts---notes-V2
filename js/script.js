@@ -50,15 +50,19 @@ document.addEventListener('DOMContentLoaded', function () {
     darkModeToggle.addEventListener('click', toggleDarkMode);
 
     // Add balance event listeners
-    setBalanceBtn.addEventListener('click', setStartingBalance);
-    startingBalanceInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            setStartingBalance();
-        }
+    startingBalanceInput.addEventListener('input', function(e) {
+        formatInputToRupiah(this);
+        calculateBalances();
+        saveDataToLocalStorage();
     });
 
     // Add event listeners to existing rows
     updateEventListeners();
+
+    // Initialize formatting for existing rupiah inputs
+    document.querySelectorAll('.rupiah-input').forEach(input => {
+        formatInputToRupiah(input);
+    });
 
     // Check for mobile view on load
     checkMobileView();
@@ -119,13 +123,13 @@ function addNewDesktopRow() {
     newRow.className = 'border-b border-gray-200 fade-in';
     newRow.innerHTML = `
         <td class="py-3 px-3 sm:px-4">
-            <input type="text" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
+            <input type="text" class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
         </td>
         <td class="py-3 px-3 sm:px-4">
-            <input type="number" min="1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="1">
+            <input type="number" min="1" class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="1">
         </td>
         <td class="py-3 px-3 sm:px-4">
-            <input type="number" min="0" step="100" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="0">
+            <input type="text" class="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
         </td>
         <td class="py-3 px-3 sm:px-4 font-medium total-cell text-sm whitespace-nowrap">
             0
@@ -178,22 +182,22 @@ function addNewMobileCard() {
         <div class="mobile-card-content">
             <div class="mobile-card-input">
                 <label class="text-gray-700 dark:text-gray-300">Nama Barang</label>
-                <input type="text" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
-            </div>
-            <div class="mobile-card-input">
-                <label class="text-gray-700 dark:text-gray-300">Jumlah</label>
-                <input type="number" min="1" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm jumlah-input" placeholder="0" value="1">
+                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Nama barang">
             </div>
             <div class="mobile-card-input">
                 <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                <input type="number" min="0" step="100" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="0">
+                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
+            </div>
+            <div class="mobile-card-input">
+                <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
+                <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
             </div>
             <div class="mobile-card-input">
                 <label class="text-gray-700 dark:text-gray-300">Total</label>
                 <div class="p-2 font-medium total-cell text-sm whitespace-nowrap">0</div>
             </div>
             <div class="comment-section-card hidden mt-2">
-                <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
+                <textarea class="comment-input-card w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm" placeholder="Tambahkan catatan..." rows="2"></textarea>
                 <div class="flex justify-end gap-1 mt-1">
                     <button class="save-comment-card px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600">Simpan</button>
                     <button class="cancel-comment-card px-2 py-1 text-xs bg-gray-500 text-white rounded hover:bg-gray-600">Batal</button>
@@ -222,7 +226,10 @@ function updateEventListeners() {
     });
 
     hargaInputs.forEach(input => {
-        input.addEventListener('input', calculateRowTotal);
+        input.addEventListener('input', function(e) {
+            formatInputToRupiah(this);
+            calculateRowTotal(e);
+        });
     });
 
     deleteButtons.forEach(button => {
@@ -408,7 +415,7 @@ function updateMobileEventListeners() {
                     </div>
                     <div class="mobile-card-input">
                         <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                        <input type="number" min="0" step="100" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" value="${hargaInput.value}">
+                        <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
                     </div>
                     <div class="mobile-card-input">
                         <label class="text-gray-700 dark:text-gray-300">Total</label>
@@ -617,7 +624,7 @@ function renderMobileCards() {
                 </div>
                 <div class="mobile-card-input">
                     <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                    <input type="number" min="0" step="100" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="${hargaInput.value}">
+                    <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
                 </div>
                 <div class="mobile-card-input">
                     <label class="text-gray-700 dark:text-gray-300">Total</label>
@@ -1135,7 +1142,7 @@ function loadDataFromLocalStorage() {
                         </div>
                         <div class="mobile-card-input">
                             <label class="text-gray-700 dark:text-gray-300">Harga Satuan</label>
-                            <input type="number" min="0" step="100" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input" placeholder="0" value="${item.harga}">
+                            <input type="text" class="p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03AED2] dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm harga-input rupiah-input" placeholder="0" value="0">
                         </div>
                         <div class="mobile-card-input">
                             <label class="text-gray-700 dark:text-gray-300">Total</label>
