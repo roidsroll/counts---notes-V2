@@ -1,0 +1,76 @@
+/* Wishlist-only accent overrides (keeps other pages unchanged). */
+
+.wishlist-page .app-tab {
+  background: rgba(244, 91, 38, 0.1);
+  border-color: rgba(244, 91, 38, 0.18);
+}
+
+.wishlist-page .app-tab:hover {
+  background: rgba(244, 91, 38, 0.18);
+  color: #f45b26;
+}
+
+.wishlist-page .app-tab.active {
+  background: #f45b26;
+  border-color: #f45b26;
+  box-shadow: 0 8px 18px rgba(244, 91, 38, 0.2);
+}
+
+.wishlist-page .app-icon-button {
+  background: #f45b26;
+  box-shadow: 0 4px 10px rgba(244, 91, 38, 0.22);
+}
+
+.wishlist-page .app-icon-button:hover {
+  background: #d94d1f;
+  box-shadow: 0 8px 18px rgba(244, 91, 38, 0.28);
+}
+
+.wishlist-page .outlined-text {
+  text-shadow:
+    -2px -2px 0 #f45b26,
+    2px -2px 0 #f45b26,
+    -2px 2px 0 #f45b26,
+    2px 2px 0 #f45b26;
+}
+
+.wishlist-page .lightning-banner::before {
+  background: linear-gradient(
+    45deg,
+    #ffffff,
+    #f45b26,
+    #ffffff,
+    #f45b26,
+    #ffffff,
+    #f45b26,
+    #ffffff,
+    #f45b26
+  );
+}
+
+.wishlist-page .lightning-banner::after {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(244, 91, 38, 0.8),
+    rgba(255, 255, 255, 0.8),
+    rgba(244, 91, 38, 0.8)
+  );
+}
+
+/* Dark mode: keep the same accent color on wishlist page. */
+.dark-mode.wishlist-page .app-tab {
+  background: rgba(244, 91, 38, 0.14);
+  border-color: rgba(244, 91, 38, 0.2);
+}
+
+.dark-mode.wishlist-page .app-tab:hover {
+  background: rgba(244, 91, 38, 0.22);
+  color: #fdba74;
+}
+
+.dark-mode.wishlist-page .app-tab.active {
+  background: #f45b26;
+  border-color: #f45b26;
+}
+
